@@ -12,7 +12,7 @@
 #include <iostream>
 #include <vector>
 
-void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
+void pythia8(Int_t nev  = 10000, Int_t ndeb = 1){
    char *p8dataenv = gSystem->Getenv("PYTHIA8DATA");
    if (!p8dataenv) {
       char *p8env = gSystem->Getenv("PYTHIA8"); 
@@ -39,11 +39,19 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
 #endif
    gSystem->Load("libEG");
    gSystem->Load("libEGPythia8");
-// Histograms
-    TH1F* yH = new TH1F("etaH", "Higgs pseudorapidity", 100, -5., 5.);
-    TH1F* ptH  = new TH1F("ptH",  "Higgs transverse momentum", 100, 0., 200.);
-    TH1F* m0 = new TH1F("mass", "Mass of Higgs", 100, 0., 200.);
     
+    TFile f("output.root", "recreate");
+    
+// Histograms
+    TH1F* yH = new TH1F("etaH", "Higgs pseudorapidity", 100, -6.28., 6.28.);
+    TH1F* ptH  = new TH1F("ptH",  "Higgs transverse momentum", 100, 0., 200.);
+    TH1D* m0 = new TH1D("mass", "Mass of Higgs", 100, 0., 200.);
+    TH1F* energy_hist = new TH1F("energy", "Energy of Higgs", 100, 0., 500.);
+    TH1F* px_hist = new TH1F("px", "Higgs Momentum (X-Direction)", 100, -300., 300.);
+    TH1F* py_hist = new TH1F("py", "Higgs Momentum (Y-Direction)", 100, -300., 300.);
+    TH1F* pz_hist = new TH1F("pz", "Higgs Momentum (Z-Direction)", 100, -500., 500.);
+    
+    // TODO: add histograms for px, py, pz, energy
     
     
 // Array of particles
@@ -81,6 +89,12 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
               Double_t energy = part->Energy();
               Double_t momentum = part->P();
               Double_t mass = sqrt(energy**2 - momentum**2);
+              Double_t px = part->Px();
+              Double_t py = part->Py();
+              Double_t pz = part ->Pz();
+              // TODO: get value px,py,pz
+              
+              
               //         if (charge == 0.) continue;
               
               Float_t charge = TDatabasePDG::Instance()->GetParticle(pdg)->Charge();
@@ -92,10 +106,11 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
                   yH->Fill(eta);
                   ptH->Fill(pt, 1./(2. * pt));
                   m0->Fill(mass);
-                  
-                  // Float_t mymass= TODO;
-                  // print energy, momentum, mass
-                  // cout << TODO ;
+                  energy_hist->Fill(energy);
+                  px_hist->Fill(px);
+                  py_hist->Fill(py);
+                  pz_hist->Fill(pz);
+                  // TODO: fill px,py,pz,energy histograms
                   
                   cout << "Energy: " << energy << " Momentum: " << momentum << " Mass: " << mass << endl ;
                   
@@ -116,8 +131,10 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
     
    pythia8->PrintStatistics();
     
-    TCanvas* c1 = new TCanvas("c1","Pythia8 test example",800,800);
-    TCanvas* c2 = new TCanvas("c2","Pythia8 test example II",800,800);
+    TCanvas* c1 = new TCanvas("c1","Pythia8 test example",600,600);
+    TCanvas* c2 = new TCanvas("c2","Pythia8 test example II",600,600);
+    TCanvas* c3 = new TCanvas("c3","Pythia8 test example III",600,900);
+    // TODO: add canvas c3
     c1->Divide(1, 2);
     c1->cd(1);
     yH->Scale(5./Float_t(nev));
@@ -139,6 +156,52 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
     m0->Draw();
     m0->SetXTitle("#m0");
     m0->SetYTitle("dN/d#m0");
+    
+    c2->cd(2);
+    energy_hist->Scale(5./Float_t(nev));
+    energy_hist->Draw();
+    energy_hist->SetXTitle("#energy");
+    energy_hist->SetYTitle("dN/d#energy");
 
+    // TODO: cd to c2->cd(2)
+    // TODO plot energy histogram in this slot
+    
+    c3->Divide(1,3);
+    c3->cd(1);
+    px_hist->Scale(5./Float_t(nev));
+    px_hist->Draw();
+    px_hist->SetXTitle("#px");
+    px_hist->SetYTitle("dN/d#px");
+    
+    c3->cd(2);
+    py_hist->Scale(5./Float_t(nev));
+    py_hist->Draw();
+    py_hist->SetXTitle("#py");
+    py_hist->SetYTitle("dN/d#py");
+    
+    c3->cd(3);
+    pz_hist->Scale(5./Float_t(nev));
+    pz_hist->Draw();
+    pz_hist->SetXTitle("#pz");
+    pz_hist->SetYTitle("dN/d#pz");
+
+    /// Saving all th histograms to the file...
+    px_hist->Write();
+    py_hist->Write();
+    pz_hist->Write();
+    m0->Write();
+    energy_hist->Write();
+    ptH->Write();
+    yH->Write();
+    
+    f.Close();
+    
+    // TODO: divide c3 into 3 parts Divide(1,3) or Divide(2,2)
+    // TODO: c3->cd(1)
+    // TODO: plot px histogram
+    // TODO: c3->cd(2)
+    // TODO: plot py histogram
+    // TODO: c3->cd(3)
+    // TODO: plot pz histogram
 
 }
