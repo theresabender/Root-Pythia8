@@ -42,6 +42,7 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
 // Histograms
     TH1F* yH = new TH1F("etaH", "Higgs pseudorapidity", 100, -5., 5.);
     TH1F* ptH  = new TH1F("ptH",  "Higgs transverse momentum", 100, 0., 200.);
+    TH1F* m0 = new TH1F("mass", "Mass of Higgs", 100, 0., 200.);
     
     
     
@@ -75,9 +76,13 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
 //         if (ist <= 0) continue;
          Int_t pdg = part->GetPdgCode();
           if (pdg == 25){
-         Float_t eta = part->Eta();
-         Float_t pt  = part->Pt();
+              Float_t eta = part->Eta();
+              Float_t pt  = part->Pt();
+              Double_t energy = part->Energy();
+              Double_t momentum = part->P();
+              Double_t mass = sqrt(energy**2 - momentum**2);
               //         if (charge == 0.) continue;
+              
               Float_t charge = TDatabasePDG::Instance()->GetParticle(pdg)->Charge();
           }
 
@@ -86,10 +91,19 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
               if (pt > 0.){
                   yH->Fill(eta);
                   ptH->Fill(pt, 1./(2. * pt));
+                  m0->Fill(mass);
+                  
+                  // Float_t mymass= TODO;
+                  // print energy, momentum, mass
+                  // cout << TODO ;
+                  
+                  cout << "Energy: " << energy << " Momentum: " << momentum << " Mass: " << mass << endl ;
+                  
+                  
                   if (iev % 100 == 1)
-                      cout << "pdg=" << pdg << " Transverse momentum: "<< pt << " Rapidity: " << eta << endl ;
+                      cout << "pdg=" << pdg << " Transverse momentum: "<< pt << " Rapidity: " << eta << " mass=" << mass << endl ;
               }
-              }
+        }
 
           
       } // for .. particle loop
@@ -102,13 +116,15 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
     
    pythia8->PrintStatistics();
     
-   TCanvas* c1 = new TCanvas("c1","Pythia8 test example",800,800);
-   c1->Divide(1, 2);
-   c1->cd(1);
-   yH->Scale(5./Float_t(nev));
-   yH->Draw();
-   yH->SetXTitle("#eta");
-   yH->SetYTitle("dN/d#eta");
+    TCanvas* c1 = new TCanvas("c1","Pythia8 test example",800,800);
+    TCanvas* c2 = new TCanvas("c2","Pythia8 test example II",800,800);
+    c1->Divide(1, 2);
+    c1->cd(1);
+    yH->Scale(5./Float_t(nev));
+    yH->Draw();
+    yH->SetXTitle("#eta");
+    yH->SetYTitle("dN/d#eta");
+   
 
    c1->cd(2);
    gPad->SetLogy();
@@ -116,4 +132,13 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
    ptH->Draw();
    ptH->SetXTitle("p_{t} [GeV/c]");
    ptH->SetYTitle("dN/dp_{t}^{2} [GeV/c]^{-2}");
- }
+
+    c2->Divide(1, 2);
+    c2->cd(1);
+    m0->Scale(5./Float_t(nev));
+    m0->Draw();
+    m0->SetXTitle("#m0");
+    m0->SetYTitle("dN/d#m0");
+
+
+}
