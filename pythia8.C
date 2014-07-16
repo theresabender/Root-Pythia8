@@ -66,6 +66,9 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
 // Initialize 
     
    pythia8->Initialize(2212 /* p */, 2212 /* p */, 14000. /* TeV */);
+    
+    Int_t Nfinaldaughters = 0;
+    Int_t Nnonfinaldaughters = 0;
 
 
 // Event loop
@@ -104,12 +107,31 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
               //         if (charge == 0.) continue;
               for (Int_t daughter_index=0; daughter_index<Ndaughters; daughter_index++){
                   Int_t daughter = part->GetDaughter(daughter_index);
-                  daughters_hist->Fill(daughter);
                   TParticle* daughterpart = (TParticle*) particles->At(daughter);
                   Int_t daughterpdg = daughterpart->GetPdgCode();
+                  Int_t daughterist = daughterpart->GetStatusCode();
                   // TODO: cout daughter
+                  // TODO: if daughter is not Higgs (daughterpdg != 25), then fill daughters_hist
+                  if (daughterpdg != 25){
+                     daughters_hist->Fill(daughterpdg);
+                  }
                   
-                  cout << "Daughter; " << daughter_index << "daughter= " << daughter << "Daughter pdg: " << daughterpdg << endl;
+                  if (daughterpdg > 0) {
+                      Nfinaldaughters+=1;
+                      cout << "Final Daughters: " << Nfinaldaughters << endl;
+                  }
+                  
+                  if (daughterpdg < 0) {
+                      Nnonfinaldaughters += 1;
+                      
+                      cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+                  }
+                  
+                
+//                cout << "Final Daughters: " << Nfinaldaughters << endl;
+//                cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+                  
+                cout << "Daughter; " << daughter_index << "daughter= " << daughter << "Daughter pdg: " << daughterpdg << endl;
                  
                   
                   
@@ -138,9 +160,10 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
    } // for .. event loop
 
     
-   //  delete pdg_vector;
-    
+    cout << "Final Daughters: " << Nfinaldaughters << endl;
+    cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
    pythia8->PrintStatistics();
+    
     
 //    TCanvas* c1 = new TCanvas("c1","Pythia8 test example",600,600);
 //    TCanvas* c2 = new TCanvas("c2","Pythia8 test example II",600,600);
