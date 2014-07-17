@@ -52,6 +52,8 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
     TH1F* py_hist = new TH1F("py", "Higgs Momentum (Y-Direction)", 100, -300., 300.);
     TH1F* pz_hist = new TH1F("pz", "Higgs Momentum (Z-Direction)", 100, -500., 500.);
     TH1I* daughters_hist = new TH1I("daughters", "Higgs Daughters", 61, -30, 30);
+    TH1I* finaldaughhters_hist = new TH1I("finaldaughters", "Higgs Final Daughters", 61, -30, 30);
+    TH1I* nonfinaldaughters_hist = new TH1I("nonfinaldaughters", "Higgs Non-final Daughters", 61, -30, 30);
 
     
 // Array of particles
@@ -96,42 +98,65 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
               Double_t px = part->Px();
               Double_t py = part->Py();
               Double_t pz = part->Pz();
-              // TODO: get number of daughters: part->GetNDaughters();
               Int_t Ndaughters = part->GetNDaughters();
               cout << "Ndaughters="<< Ndaughters << endl;
-              // TODO: loop over daughters
-              // TODO:      for each daughter retrieve this daughter particle:
-              // TODO:          part->GetDaughter(index_daughter)
-              // TODO:              index_daughter goes from 0 to GetNDaughters
-              // TODO:          what is the particle ID of the daughter? dump it into a new histogram
-              //         if (charge == 0.) continue;
               for (Int_t daughter_index=0; daughter_index<Ndaughters; daughter_index++){
                   Int_t daughter = part->GetDaughter(daughter_index);
                   TParticle* daughterpart = (TParticle*) particles->At(daughter);
                   Int_t daughterpdg = daughterpart->GetPdgCode();
                   Int_t daughterist = daughterpart->GetStatusCode();
-                  // TODO: cout daughter
-                  // TODO: if daughter is not Higgs (daughterpdg != 25), then fill daughters_hist
+                  
+                  // TODO: get number of daughters: part->GetNDaughters();
                   if (daughterpdg != 25){
-                     daughters_hist->Fill(daughterpdg);
-                  }
-                  
-                  if (daughterpdg > 0) {
-                      Nfinaldaughters+=1;
-                      cout << "Final Daughters: " << Nfinaldaughters << endl;
-                  }
-                  
-                  if (daughterpdg < 0) {
-                      Nnonfinaldaughters += 1;
                       
-                      cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+                      
+                      daughters_hist->Fill(daughterpdg);
+                      // get number of grand-daughter for this dauther  daugterpart->GetNDaugters()
+                      // if number of grand-d. >0 ... not final
+                      // else: daughter is final
+                      Int_t Ngrandaughters = daughterpart->GetNDaughters();
+                      
+                      if (Ngrandaughters > 1){
+                          nonfinaldaughters_hist->Fill(daughterpdg);
+                          Nnonfinaldaughters += 1;
+                          cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+                      } else {
+                      // Ngranddaughters <= 1
+                          if (Nfinaldaughters == 1){
+                              Int_t granddaughter = daughterpart->GetDaughter(0);
+                              TParticle* granddaughterpart = (TParticle*) particles->At(granddaughter);
+                              Int_t granddaughterpdg = granddaughterpart->GetPdgCode();
+                          
+                              if (daughterpdg == granddaughterpdg) {
+                                  finaldaughhters_hist->Fill(daughterpdg);
+                                  Nfinaldaughters+=1;
+                                  cout << "Final Daughters: " << Nfinaldaughters << endl;
+                              } else {
+                                  nonfinaldaughters_hist->Fill(daughterpdg);
+                                  Nnonfinaldaughters += 1;
+                                  cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+                                  
+                              }
+                          } else {
+                              finaldaughhters_hist->Fill(daughterpdg);
+                              Nfinaldaughters+=1;
+                              cout << "Final Daughters: " << Nfinaldaughters << endl;
+                          }
+                      
+                          // get pdg code for granddaughter
+                            // granddaughterpdg
+                          // if pdg(daughter) == psg(granddaughter) --> consider daughter final
+                          //                                            else consider daughter not final
+                      }
+                      
+                      
                   }
                   
                 
 //                cout << "Final Daughters: " << Nfinaldaughters << endl;
 //                cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
                   
-                cout << "Daughter; " << daughter_index << "daughter= " << daughter << "Daughter pdg: " << daughterpdg << endl;
+                cout << "Daughter; " << daughter_index << "daughter= " << daughter << "Daughter pdg: " << daughterpdg << "String  status" << daughterist << "Ngrandaughters" << Ngrandaughters << endl;
                  
                   
                   
@@ -233,6 +258,8 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
     ptH->Write();
     yH->Write();
     daughters_hist->Write();
+    finaldaughhters_hist->Write();
+    nonfinaldaughters_hist->Write();
 
     f.Close();
    
