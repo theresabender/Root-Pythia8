@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 
+//void pythia8(Int_t nev  = 100000, Int_t ndeb = 1){
 void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
    char *p8dataenv = gSystem->Getenv("PYTHIA8DATA");
    if (!p8dataenv) {
@@ -54,6 +55,13 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
     TH1I* daughters_hist = new TH1I("daughters", "Higgs Daughters", 61, -30, 30);
     TH1I* finaldaughhters_hist = new TH1I("finaldaughters", "Higgs Final Daughters", 61, -30, 30);
     TH1I* nonfinaldaughters_hist = new TH1I("nonfinaldaughters", "Higgs Non-final Daughters", 61, -30, 30);
+    TH1F* yH_daughters = new TH1F("etaH daughters", "Higgs daughters pseudorapidity", 100, -6.28., 6.28.);
+    TH1F* ptH_daughters  = new TH1F("ptH daughters",  "Higgs daughters transverse momentum", 100, 0., 200.);
+    TH1D* m0_daughters = new TH1D("mass daughters", "Mass of Higgs daughters", 100, 0., 200.);
+    TH1F* energy_hist_daughters = new TH1F("energy daughters", "Energy of Higgs daughters", 100, 0., 500.);
+    TH1F* px_hist_daughters = new TH1F("px daughters", "Higgs Daughters Momentum (X-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters = new TH1F("py daughters", "Higgs Daughters Momentum (Y-Direction)", 100, -300., 300.);
+    TH1F* pz_hist_daughters = new TH1F("pz daughters", "Higgs Daughters Momentum (Z-Direction)", 100, -500., 500.);
 
     
 // Array of particles
@@ -76,6 +84,11 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
 // Event loop
 
     for (Int_t iev = 0; iev < nev; iev++) {
+        
+        if (iev % 500 == 0){
+            cout << "iev=" << iev << endl;
+        }
+        
       pythia8->GenerateEvent();
       if (iev < ndeb) pythia8->EventListing();
       pythia8->ImportParticles(particles,"All");
@@ -83,7 +96,7 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
         
 // Particle loop
       for (Int_t ip = 0; ip < np; ip++) {
-         TParticle* part = (TParticle*) particles->At(ip);
+          TParticle* part = (TParticle*) particles->At(ip);
          
          Int_t ist = part->GetStatusCode();
          // Positive codes are final particles.
@@ -99,18 +112,34 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
               Double_t py = part->Py();
               Double_t pz = part->Pz();
               Int_t Ndaughters = part->GetNDaughters();
-              cout << "Ndaughters="<< Ndaughters << endl;
+//              cout << "Ndaughters="<< Ndaughters << endl;
               for (Int_t daughter_index=0; daughter_index<Ndaughters; daughter_index++){
                   Int_t daughter = part->GetDaughter(daughter_index);
                   TParticle* daughterpart = (TParticle*) particles->At(daughter);
                   Int_t daughterpdg = daughterpart->GetPdgCode();
                   Int_t daughterist = daughterpart->GetStatusCode();
+                
                   
                   // TODO: get number of daughters: part->GetNDaughters();
                   if (daughterpdg != 25){
                       
+                      Float_t eta_daughters = daughterpart->Eta();
+                      Float_t pt_daughters  = daughterpart->Pt();
+                      Double_t energy_daughters = daughterpart->Energy();
+                      Double_t momentum_daughters = daughterpart->P();
+                      Double_t mass_daughters = sqrt(energy**2 - momentum**2);
+                      Double_t px_daughters = daughterpart->Px();
+                      Double_t py_daughters = daughterpart->Py();
+                      Double_t pz_daughters = daughterpart->Pz();
                       
                       daughters_hist->Fill(daughterpdg);
+                      yH_daughters->Fill(eta_daughters);
+                      ptH_daughters->Fill(pt_daughters, 1./(2. * pt_daughters));
+                      m0_daughters->Fill(mass_daughters);
+                      energy_hist_daughters->Fill(energy_daughters);
+                      px_hist_daughters->Fill(px_daughters);
+                      py_hist_daughters->Fill(py_daughters);
+                      pz_hist_daughters->Fill(pz_daughters);
                       // get number of grand-daughter for this dauther  daugterpart->GetNDaugters()
                       // if number of grand-d. >0 ... not final
                       // else: daughter is final
@@ -119,7 +148,7 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
                       if (Ngrandaughters > 1){
                           nonfinaldaughters_hist->Fill(daughterpdg);
                           Nnonfinaldaughters += 1;
-                          cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+                          //cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
                       } else {
                       // Ngranddaughters <= 1
                           if (Nfinaldaughters == 1){
@@ -130,17 +159,17 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
                               if (daughterpdg == granddaughterpdg) {
                                   finaldaughhters_hist->Fill(daughterpdg);
                                   Nfinaldaughters+=1;
-                                  cout << "Final Daughters: " << Nfinaldaughters << endl;
+//                                  cout << "Final Daughters: " << Nfinaldaughters << endl;
                               } else {
                                   nonfinaldaughters_hist->Fill(daughterpdg);
                                   Nnonfinaldaughters += 1;
-                                  cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+//                                  cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
                                   
                               }
                           } else {
                               finaldaughhters_hist->Fill(daughterpdg);
                               Nfinaldaughters+=1;
-                              cout << "Final Daughters: " << Nfinaldaughters << endl;
+//                              cout << "Final Daughters: " << Nfinaldaughters << endl;
                           }
                       
                           // get pdg code for granddaughter
@@ -156,7 +185,7 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
 //                cout << "Final Daughters: " << Nfinaldaughters << endl;
 //                cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
                   
-                cout << "Daughter; " << daughter_index << "daughter= " << daughter << "Daughter pdg: " << daughterpdg << "String  status" << daughterist << "Ngrandaughters" << Ngrandaughters << endl;
+//                cout << "Daughter; " << daughter_index << "daughter= " << daughter << "Daughter pdg: " << daughterpdg << "String  status" << daughterist << "Ngrandaughters" << Ngrandaughters << endl;
                  
                   
                   
@@ -171,10 +200,11 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
                   py_hist->Fill(py);
                   pz_hist->Fill(pz);
                   
-                  cout << "Energy: " << energy << " Momentum: " << momentum << " Mass: " << mass << endl ;
-                  if (iev % 100 == 1)
-                      cout << "pdg=" << pdg << " Transverse momentum: "<< pt << " Rapidity: " << eta
-                            << " mass=" << mass << endl ;
+                  
+////                  cout << "Energy: " << energy << " Momentum: " << momentum << " Mass: " << mass << endl ;
+//                  if (iev % 100 == 1)
+////                      cout << "pdg=" << pdg << " Transverse momentum: "<< pt << " Rapidity: " << eta
+//                            << " mass=" << mass << endl ;
               } // if pt>0.
         } // if pdg==25
 
@@ -185,9 +215,9 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
    } // for .. event loop
 
     
-    cout << "Final Daughters: " << Nfinaldaughters << endl;
-    cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
-   pythia8->PrintStatistics();
+//    cout << "Final Daughters: " << Nfinaldaughters << endl;
+//    cout << "Nonfinal Daughters: " << Nnonfinaldaughters << endl;
+    pythia8->PrintStatistics();
     
     
 //    TCanvas* c1 = new TCanvas("c1","Pythia8 test example",600,600);
@@ -260,7 +290,16 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
     daughters_hist->Write();
     finaldaughhters_hist->Write();
     nonfinaldaughters_hist->Write();
+    px_hist_daughters->Write();
+    py_hist_daughters->Write();
+    pz_hist_daughters->Write();
+    m0_daughters->Write();
+    energy_hist_daughters->Write();
+    ptH_daughters->Write();
+    yH_daughters->Write();
 
     f.Close();
-   
+  
+    exit(0);
+    
 }
