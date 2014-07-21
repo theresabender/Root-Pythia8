@@ -1,0 +1,16 @@
+SHELL = /bin/sh
+ARCH = Darwin-gcc4
+MYLCGPLATFORM = x86_64
+#MYLCGPLATFORM = x86_64-slc5-gcc43-opt
+SHAREDLIBS = yes
+FC = gfortran
+CC = gcc
+FFLAGS = -O2
+CFLAGS = -O2
+CXXFLAGS = -O2 -ansi -pedantic -W -Wall -Wshadow
+FLIBS = -lgfortran
+LDFLAGSSHARED = -O2 -ansi -pedantic -W -Wall -Wshadow -dynamiclib -single_module -flat_namespace -undefined suppress
+LDFLAGLIBNAME = -Wl,-dylib_install_name
+SHAREDSUFFIX = dylib
+INSTALLDIR = /Users/test/sw/pythia8186
+DATADIR = /Users/test/sw/pythia8186
