@@ -13,7 +13,7 @@
 #include <vector>
 
 //void pythia8(Int_t nev  = 100000, Int_t ndeb = 1){
-void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
+void pythia8(Int_t nev  = 20000, Int_t ndeb = 1){
    char *p8dataenv = gSystem->Getenv("PYTHIA8DATA");
    if (!p8dataenv) {
       char *p8env = gSystem->Getenv("PYTHIA8"); 
@@ -127,7 +127,7 @@ void pythia8(Int_t nev  = 100, Int_t ndeb = 1){
                       Float_t pt_daughters  = daughterpart->Pt();
                       Double_t energy_daughters = daughterpart->Energy();
                       Double_t momentum_daughters = daughterpart->P();
-                      Double_t mass_daughters = sqrt(energy**2 - momentum**2);
+                      Double_t mass_daughters = sqrt(energy_daughters**2 - momentum_daughters**2);
                       Double_t px_daughters = daughterpart->Px();
                       Double_t py_daughters = daughterpart->Py();
                       Double_t pz_daughters = daughterpart->Pz();
