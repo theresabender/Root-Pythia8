@@ -13,9 +13,9 @@
 #include <vector>
 
 // Header file to access Pythia 8 program elements.
-//#include "pythiaROOT.h"
 #include "Pythia8/Pythia.h"
-//#include "TPythia8.h"
+// #include "Pythia8/Event.h"
+
 
 // ROOT, for histogramming.
 #include "TH1.h"
@@ -28,16 +28,21 @@
 
 // ROOT, for saving file.
 #include "TFile.h"
+#include "TTree.h" /* this */
+
+
 using namespace Pythia8;
 
 int main(int argc, char* argv[]) {
-    Int_t nev  = 10000;
+    Int_t nev  = 2000;
     Int_t ndeb = 1;
 
     // Create the ROOT application environment.
     TApplication theApp("pythia8test", &argc, argv);
     
     TFile f("output.root", "recreate");
+    TTree *T = new TTree("T","ev1 Tree");
+    // TODO: TTree definition goes here
 
 // Histograms
     TH1F* yH = new TH1F("etaH", "Higgs pseudorapidity", 100, -6.28, 6.28);
@@ -90,10 +95,21 @@ int main(int argc, char* argv[]) {
     for (int iev = 0; iev < nev; ++iev) {
         if (!pythia8.next()) continue;
         
+        if (iev % 100 == 0){
+            cout << "Event # " << iev << endl;
+        }
+        
+        // TODO: Event *event goes here, instead of pythia. use puthia8.
+        // TODO: TBranch thingy goes here
+        Event *event = &pythia8.event;
+        T->Branch("event",&event);
+        
+        
         // Find number of all final charged particles.
         int nCharged = 0;
         // Begin particle loop.
         for (int i = 0; i < pythia8.event.size(); ++i){
+            
             
             Double_t eta = pythia8.event[i].eta();
             Double_t energy = pythia8.event[i].e();
@@ -178,6 +194,9 @@ int main(int argc, char* argv[]) {
                 }//for (Int_t daughter_index=0; daughter_index<Ndaughters
             }//if (pythia8.event[i].id() == 25)
         } // end of: particle loop
+        
+        //TODO: fill T->Fill(); here
+        T->Fill();
     } // end of: event loop
 
     
@@ -202,7 +221,10 @@ int main(int argc, char* argv[]) {
     energy_hist_daughters->Write();
     ptH_daughters->Write();
     yH_daughters->Write();
-
+    T->Write();
+    // TODO: T->Write(); here
+    
+    
     f.Close();
   
     exit(0);

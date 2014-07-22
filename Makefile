@@ -35,23 +35,25 @@ all: $(EX)
 ### 	$(CXX) $(ROOTCXXFLAGS) $@.cc -o $@.exe $(LDFLAGS1)
 
 pythia8test: $(STATICLIB) pythia8test.cc
-	$(CXX) $(ROOTCXXFLAGS) $@.cc -o $@.exe $(LDFLAGS1)
+#	$(CXX) $(ROOTCXXFLAGS) $@.cc -o $@.exe $(LDFLAGS1)
+	rootcint -f pythia8testDict.cc -c $(DICTCXXFLAGS) pythiaROOT.h pythiaLinkdef.h
+	$(CXX) $(ROOTCXXFLAGS) pythia8testDict.cc $@.cc -o $@.exe $(LDFLAGS1)
 
 
 # Rule to build tree example. Needs dictionary to be built and
 # static PYTHIA 8 library
-### tree: $(STATICLIB) tree.cc
-### 	rootcint -f treeDict.cc -c $(DICTCXXFLAGS) pythiaROOT.h pythiaLinkdef.h
-### 	$(CXX) $(ROOTCXXFLAGS) treeDict.cc $@.cc -o $@.exe $(LDFLAGS1)
+tree: $(STATICLIB) tree.cc
+	rootcint -f treeDict.cc -c $(DICTCXXFLAGS) pythiaROOT.h pythiaLinkdef.h
+	$(CXX) $(ROOTCXXFLAGS) treeDict.cc $@.cc -o $@.exe $(LDFLAGS1)
 
 # Rule to build full dictionary
-### dict: $(SHAREDLIB)
-### 	rootcint -f pythiaDict.cc -c $(DICTCXXFLAGS) \
-###            -DPYTHIA8_COMPLETE_ROOT_DICTIONARY \
-###            pythiaROOT.h pythiaLinkdef.h
-### 	$(CXX) -shared -fPIC -o pythiaDict.$(SHAREDSUFFIX) pythiaDict.cc \
-###          -DPYTHIA8_COMPLETE_ROOT_DICTIONARY \
-###          $(ROOTCXXFLAGS) $(LDFLAGS2)
+dict: $(SHAREDLIB)
+	rootcint -f pythiaDict.cc -c $(DICTCXXFLAGS) \
+           -DPYTHIA8_COMPLETE_ROOT_DICTIONARY \
+           pythiaROOT.h pythiaLinkdef.h
+	$(CXX) -shared -fPIC -o pythiaDict.$(SHAREDSUFFIX) pythiaDict.cc \
+         -DPYTHIA8_COMPLETE_ROOT_DICTIONARY \
+          $(ROOTCXXFLAGS) $(LDFLAGS2)
 
 
 # Error messages if PYTHIA libraries don't exist
