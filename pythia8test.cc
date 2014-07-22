@@ -169,19 +169,59 @@ int main(int argc, char* argv[]) {
                 
                 
                 for (Int_t daughter_index=0; daughter_index<daughters.size(); daughter_index++){
-                    Double_t eta_daughters = pythia8.event[i].eta();
-                    Double_t pt_daughters  = pythia8.event[i].pT();
-                    Double_t energy_daughters = pythia8.event[i].e();
-                    Vec4 momentum_daughters = pythia8.event[i].p();
-                    Double_t mass_daughters = pythia8.event[i].m();
-                    Double_t px_hist_daughters = pythia8.event[i].px();
-                    Double_t py_daughters = pythia8.event[i].py();
-                    Double_t pz_daughters = pythia8.event[i].pz();
+                    
+                    Int_t daughter_row_number = daughters.at(daughter_index);
+                    Int_t pdg_daughters=pythia8.event[i].id();
+                    Double_t eta_daughters = pythia8.event[daughter_row_number].eta();
+                    Double_t pt_daughters  = pythia8.event[daughter_row_number].pT();
+                    Double_t energy_daughters = pythia8.event[daughter_row_number].e();
+                    Vec4 momentum_daughters = pythia8.event[daughter_row_number].p();
+                    Double_t mass_daughters = pythia8.event[daughter_row_number].m();
+                    Double_t px_daughters = pythia8.event[daughter_row_number].px();
+                    Double_t py_daughters = pythia8.event[daughter_row_number].py();
+                    Double_t pz_daughters = pythia8.event[daughter_row_number].pz();
+                    
+                    daughters_hist->Fill(pdg_daughters);
+                    yH_daughters->Fill(eta_daughters);
+                    ptH_daughters->Fill(pt_daughters);
+                    m0_daughters->Fill(mass_daughters);
+                    energy_hist_daughters->Fill(energy_daughters);
+                    px_hist_daughters->Fill(px_daughters);
+                    py_hist_daughters->Fill(py_daughters);
+                    pz_hist_daughters->Fill(pz_daughters);
+                    
+                    
+                    vector<Int_t> granddaughters = pythia8.event[daughter_index].daughterList();
+                    Int_t Ngrandaughters = granddaughters.size();
+                    
+                    
+                    if (Ngrandaughters > 1){
+                        nonfinaldaughters_hist->Fill(pdg_daughters);
+                        Nnonfinaldaughters += 1;
+
+                    } else {
+                      // Ngranddaughters <= 1
+                          if (Ngrandaughters == 1){
+                              Int_t granddaughter_row_number = granddaughters.at(0);
+                              Int_t pdg_granddaughter = pythia8.event[granddaughter_row_number].id();
+
+                              if (pdg_daughters == pdg_granddaughter) {
+                                  finaldaughhters_hist->Fill(pythia8.event[daughter_row_number].id());
+                                  Nfinaldaughters+=1;
+                              
+                              } else {
+                                  nonfinaldaughters_hist->Fill(pythia8.event[daughter_row_number].id());
+                                  Nnonfinaldaughters += 1;
+                              } // else of: if (pdg_daughters == pdg_granddaughter) {
+                              
+                            } else {
+                              finaldaughhters_hist->Fill(pythia8.event[i].id());
+                              Nfinaldaughters+=1;
+
+                            } // else of: if Ngranddaughters==1
+                    } // ekse if/l Ngranddaugtres>1
                 }//for (Int_t daughter_index=0; daughter_index<Ndaughters;
-                
             }//if (pythia8.event[i].id() == 25)
-        
-        
         } // end of: particle loop
     } // end of: event loop
 
