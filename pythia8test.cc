@@ -141,35 +141,49 @@ int main(int argc, char* argv[]) {
         
         // Find number of all final charged particles.
         int nCharged = 0;
-//        int method id(ß);
-        //int idIn = idSave = idIn; // setPDEPtr();
-//        int statusIn = statusSave;
-        for (int i = 0; i < pythia8.event.size(); ++i)
-            if (pythia8.event[i].isFinal() && pythia8.event[i].isCharged()){
-                ++nCharged;
-//                pythia8.event[i].eta();
-                Double_t eta = pythia8.event[i].eta();
-                //cout << "iev="<< iev << " i=" << i << " eta=" << eta << " ID= " << pythia8.event[i].id() << " status= " << pythia8.event[i].status() << " isFinal=" << pythia8.event[i].isFinal() << endl;
-            } else {
-                Double_t eta = pythia8.event[i].eta();
-                //cout << "iev="<< iev << " i=" << i << " eta=" << eta << " ID= " << pythia8.event[i].id() << " status= " << pythia8.event[i].status() << " isFinal=" << pythia8.event[i].isFinal() << endl;
+        // Begin particle loop.
+        for (int i = 0; i < pythia8.event.size(); ++i){
+            
+            Double_t eta = pythia8.event[i].eta();
+            Double_t energy = pythia8.event[i].e();
+            Double_t pt  = pythia8.event[i].pT();
+            Vec4 momentum = pythia8.event[i].p();
+            Double_t mass = pythia8.event[i].m();
+            Double_t px = pythia8.event[i].px();
+            Double_t py = pythia8.event[i].py();
+            Double_t pz = pythia8.event[i].pz();
+            
+            //cout << "iev="<< iev << " i=" << i << " eta=" << eta << " ID= " << pythia8.event[i].id() << " status= " << pythia8.event[i].status() << " isFinal=" << pythia8.event[i].isFinal() << endl;
                 
+            if (pythia8.event[i].id() == 25) {
+                cout << "iev="<< iev << " i=" << i << " eta=" << eta << " ID= " << pythia8.event[i].id() << " status= " << pythia8.event[i].status() << " isFinal=" << pythia8.event[i].isFinal() << endl;
+                
+                // TODO: how do we get number of daughters?
+                // TODO: store pythia8.event[i].daughterList in a new variable daughterList of type vector<Int_t>
+                // TODO: get number of vecor's elemnts with daughterList.size()
+                
+                vector<Int_t> daughterList = pythia8.event[i].daughterList();
+                cout << " Size: " << daughterList.size() << endl;
+                
+                vector<Int_t> daughters = pythia8.event[i].daughterList();
+                
+                
+                for (Int_t daughter_index=0; daughter_index<daughters.size(); daughter_index++){
+                    Double_t eta_daughters = pythia8.event[i].eta();
+                    Double_t pt_daughters  = pythia8.event[i].pT();
+                    Double_t energy_daughters = pythia8.event[i].e();
+                    Vec4 momentum_daughters = pythia8.event[i].p();
+                    Double_t mass_daughters = pythia8.event[i].m();
+                    Double_t px_hist_daughters = pythia8.event[i].px();
+                    Double_t py_daughters = pythia8.event[i].py();
+                    Double_t pz_daughters = pythia8.event[i].pz();
+                }//for (Int_t daughter_index=0; daughter_index<Ndaughters;
+                
+            }//if (pythia8.event[i].id() == 25)
         
-        if (pythia8.event[i].id() == 25) {
-            cout << "iev="<< iev << " i=" << i << " eta=" << eta << " ID= " << pythia8.event[i].id() << " status= " << pythia8.event[i].status() << " isFinal=" << pythia8.event[i].isFinal() << endl;
-        }
-            }
         
-//        
-//        if (condition){
-//         // do something if condition is satisfied
-//        } else {
-//        // do something when condition is broken
-//        }
-        
-        // Fill charged multiplicity in histogram. End event loop.
-//        mult->Fill( nCharged );
-    }
+        } // end of: particle loop
+    } // end of: event loop
 
     
 //// Event loop
