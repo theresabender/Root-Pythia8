@@ -34,7 +34,7 @@
 using namespace Pythia8;
 
 int main(int argc, char* argv[]) {
-    Int_t nev  = 2000;
+    Int_t nev  = 20000;
     Int_t ndeb = 1;
 
     // Create the ROOT application environment.
@@ -75,6 +75,11 @@ int main(int argc, char* argv[]) {
     pythia8.readString("Beams:eCM = 14000.");
     pythia8.readString("HiggsSM:gg2H = on");
     
+    // TODO: Event *event goes here, instead of pythia. use puthia8.
+    // TODO: TBranch thingy goes here
+    Event *event = &pythia8.event;
+    T->Branch("event",&event);
+    
 // Initialize
     
 //    pythia8->Initialize(2212 /* p */, 2212 /* p */, 14000. /* TeV */);
@@ -99,11 +104,7 @@ int main(int argc, char* argv[]) {
             cout << "Event # " << iev << endl;
         }
         
-        // TODO: Event *event goes here, instead of pythia. use puthia8.
-        // TODO: TBranch thingy goes here
-        Event *event = &pythia8.event;
-        T->Branch("event",&event);
-        
+    
         
         // Find number of all final charged particles.
         int nCharged = 0;
