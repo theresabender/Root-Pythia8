@@ -35,9 +35,16 @@ all: $(EX)
 ### 	$(CXX) $(ROOTCXXFLAGS) $@.cc -o $@.exe $(LDFLAGS1)
 
 pythia8test: $(STATICLIB) pythia8test.cc
-#	$(CXX) $(ROOTCXXFLAGS) $@.cc -o $@.exe $(LDFLAGS1)
 	rootcint -f pythia8testDict.cc -c $(DICTCXXFLAGS) pythiaROOT.h pythiaLinkdef.h
 	$(CXX) $(ROOTCXXFLAGS) pythia8testDict.cc $@.cc -o $@.exe $(LDFLAGS1)
+    
+sims: $(STATICLIB) sims.cc
+	rootcint -f simulationDict.cc -c $(DICTCXXFLAGS) pythiaROOT.h pythiaLinkdef.h
+	$(CXX) $(ROOTCXXFLAGS) simulationDict.cc $@.cc -o $@.exe $(LDFLAGS1)
+    
+histogram: $(STATICLIB) histogram.cc
+	rootcint -f histogramDict.cc -c $(DICTCXXFLAGS) pythiaROOT.h pythiaLinkdef.h
+	$(CXX) $(ROOTCXXFLAGS) histogramDict.cc $@.cc -o $@.exe $(LDFLAGS1)
 
 
 # Rule to build tree example. Needs dictionary to be built and
