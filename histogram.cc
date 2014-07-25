@@ -29,12 +29,15 @@
 // ROOT, for saving file.
 #include "TFile.h"
 #include "TTree.h" /* this */
+#include "THStack.h"
+
 
 using namespace Pythia8;
 
 int main(int argc, char* argv[]) {
-    Int_t nev  = 20000;
+    Int_t nEntries;
     Int_t ndeb = 1;
+
 
     // Create the ROOT application environment.
     TApplication theApp("pythia8test", &argc, argv);
@@ -71,9 +74,40 @@ int main(int argc, char* argv[]) {
     TH1F* py_hist_daughters = new TH1F("py daughters", "Higgs Daughters Momentum (Y-Direction)", 100, -300., 300.);
     TH1F* pz_hist_daughters = new TH1F("pz daughters", "Higgs Daughters Momentum (Z-Direction)", 100, -500., 500.);
    
+    TH1F* ptH_daughters_b  = new TH1F("ptH daughters b",  "Higgs daughters b transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_antib  = new TH1F("ptH daughters anti b",  "Higgs daughters anti b transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_w  = new TH1F("ptH daughters w ",  "Higgs daughters w transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_antiw  = new TH1F("ptH daughters anti w",  "Higgs daughters anti w transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_z = new TH1F("ptH daughters z",  "Higgs daughters z transverse momentum", 100, 0., 200.);
     
+    TH1F* energy_hist_daughters_b = new TH1F("energy daughters b", "Energy of Higgs daughters b quark", 100, 0., 500.);
+    TH1F* energy_hist_daughters_antib = new TH1F("energy daughters anti b", "Energy of Higgs daughters anti b quark", 100, 0., 500.);
+    TH1F* energy_hist_daughters_w = new TH1F("energy daughters w", "Energy of Higgs daughters w", 100, 0., 500.);
+    TH1F* energy_hist_daughters_antiw = new TH1F("energy daughters anti w", "Energy of Higgs daughters anti w", 100, 0., 500.);
+    TH1F* energy_hist_daughters_z = new TH1F("energy daughters z", "Energy of Higgs daughters z", 100, 0., 500.);
+    
+    TH1F* px_hist_daughters_b = new TH1F("px daughters b", "Higgs Daughters Momentum b (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_antib = new TH1F("px daughters anti b", "Higgs Daughters Momentum anti b (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_w = new TH1F("px daughters w", "Higgs Daughters Momentum w (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_antiw = new TH1F("px daughters anti w", "Higgs Daughters Momentum anti w (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_z = new TH1F("px daughters z", "Higgs Daughters Momentum z (X-Direction)", 100, -300., 300.);
+    
+    TH1F* py_hist_daughters_b = new TH1F("py daughters b", "Higgs Daughters Momentum b (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_antib = new TH1F("py daughters anti b", "Higgs Daughters Momentum anti b (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_w = new TH1F("py daughters w", "Higgs Daughters Momentum w (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_antiw = new TH1F("py daughters anti w", "Higgs Daughters Momentum anti w (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_z = new TH1F("py daughters z", "Higgs Daughters Momentum z (Y-Direction)", 100, -300., 300.);
+    
+    TH1F* pz_hist_daughters_b = new TH1F("pz daughters b", "Higgs Daughters Momentum b (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_antib = new TH1F("pz daughters anti b", "Higgs Daughters anti b Momentum (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_w = new TH1F("pz daughters w", "Higgs Daughters Momentum w (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_antiw = new TH1F("pz daughters anti w", "Higgs Daughters anti w Momentum (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_z = new TH1F("pz daughters z", "Higgs Daughters Momentum z (Z-Direction)", 100, -500., 500.);
+    
+
     // this is event cycle
-    Int_t nEntries = T->GetEntries();
+    nEntries = T->GetEntries();
+    //nEntries = 100;
     cout << "nEntries=" << nEntries << endl;
     
     for(Int_t i=0; i<nEntries; ++i) {
@@ -119,7 +153,7 @@ int main(int argc, char* argv[]) {
                         Int_t pdg_daughters = event->at(daughter_row_number).id();
                         cout << "daughter #" << daughter_index << " at row" << daughter_row_number << " has PDG number " << pdg_daughters << endl;
                     
-                        if (pdg_daughters != 25){
+                        if (pdg_daughters != 25){ //not higgs
 
                             Double_t eta_daughters = event->at(daughter_row_number).eta();
                             Double_t pt_daughters  = event->at(daughter_row_number).pT();
@@ -139,6 +173,87 @@ int main(int argc, char* argv[]) {
                             py_hist_daughters->Fill(py_daughters);
                             pz_hist_daughters->Fill(pz_daughters);
                             
+
+                        if (pdg_daughters == 5){ // b quark
+                                
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                                
+                            ptH_daughters_b->Fill(pt_daughters);
+                            energy_hist_daughters_b->Fill(energy_daughters);
+                            px_hist_daughters_b->Fill(px_daughters);
+                            py_hist_daughters_b->Fill(py_daughters);
+                            pz_hist_daughters_b->Fill(pz_daughters);
+                            
+                        } // if b
+                            
+                        if (pdg_daughters == -5){ // anti b quark
+                            
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                            
+                            ptH_daughters_antib->Fill(pt_daughters);
+                            energy_hist_daughters_antib->Fill(energy_daughters);
+                            px_hist_daughters_antib->Fill(px_daughters);
+                            py_hist_daughters_antib->Fill(py_daughters);
+                            pz_hist_daughters_antib->Fill(pz_daughters);
+                            
+                        } // if anti b
+                            
+                        if (pdg_daughters == 24){ // w
+                            
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                            
+                            ptH_daughters_w->Fill(pt_daughters);
+                            energy_hist_daughters_w->Fill(energy_daughters);
+                            px_hist_daughters_w->Fill(px_daughters);
+                            py_hist_daughters_w->Fill(py_daughters);
+                            pz_hist_daughters_w->Fill(pz_daughters);
+                            
+                        } // if w
+                            
+                        if (pdg_daughters == -24){ // anti w
+                            
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                            
+                            ptH_daughters_antiw->Fill(pt_daughters);
+                            energy_hist_daughters_antiw->Fill(energy_daughters);
+                            px_hist_daughters_antiw->Fill(px_daughters);
+                            py_hist_daughters_antiw->Fill(py_daughters);
+                            pz_hist_daughters_antiw->Fill(pz_daughters);
+                            
+                        } // if anti w
+                            
+                        if (pdg_daughters == 23){ // z
+                            
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                            
+                            ptH_daughters_z->Fill(pt_daughters);
+                            energy_hist_daughters_z->Fill(energy_daughters);
+                            px_hist_daughters_z->Fill(px_daughters);
+                            py_hist_daughters_z->Fill(py_daughters);
+                            pz_hist_daughters_z->Fill(pz_daughters);
+                            
+                        } // if z
+
                             granddaughterList = event->daughterList(daughter_row_number);
                             Int_t Ngrandaughters = granddaughterList.size();
                             
@@ -166,6 +281,7 @@ int main(int argc, char* argv[]) {
                                 finaldaughhters_hist->Fill(event->at(daughter_row_number).id());
                                 Nfinaldaughters+=1;
 
+                           
                                 } // else of: if Ngranddaughters==1
                             } // else if/l Ngranddaugtres>1
                         } // if daughter is not Higgs
@@ -180,6 +296,50 @@ int main(int argc, char* argv[]) {
     
     f.cd();
 
+
+    
+            THStack *hs = new THStack("hs","pT");
+            //create three 1-d histograms
+//            TH1F* ptH_daughters_stackedhisto  = new TH1F("ptH daughters stacked histogram",  "Higgs daughters transverse momentum", 100, 0., 200.);
+//            ptH_daughters_b->FillRandom("gaus",20000);
+            ptH_daughters_b->SetFillColor(kRed);
+            ptH_daughters_b->SetMarkerStyle(21);
+            ptH_daughters_b->SetMarkerColor(kRed);
+            hs->Add(ptH_daughters_b);
+    
+//            TH1F* ptH_daughters_antib  = new TH1F("ptH daughters anti b",  "Higgs daughters anti b transverse momentum", 100, 0., 200.);
+//            ptH_daughters_antib->FillRandom("gaus",15000);
+            ptH_daughters_antib->SetFillColor(kBlue);
+            ptH_daughters_antib->SetMarkerStyle(21);
+            ptH_daughters_antib->SetMarkerColor(kBlue);
+            hs->Add(ptH_daughters_antib);
+//            TH1F* ptH_daughters_w  = new TH1F("ptH daughters w ",  "Higgs daughters w transverse momentum", 100, 0., 200.);
+//            ptH_daughters_w->FillRandom("gaus",10000);
+            ptH_daughters_w->SetFillColor(kGreen);
+            ptH_daughters_w->SetMarkerStyle(21);
+            ptH_daughters_w->SetMarkerColor(kGreen);
+            hs->Add(ptH_daughters_w);
+//            TH1F* ptH_daughters_antiw  = new TH1F("ptH daughters anti w",  "Higgs daughters anti w transverse momentum", 100, 0., 200.);
+//            ptH_daughters_antiw->FillRandom("gaus",10000);
+            ptH_daughters_antiw->SetFillColor(kOrange);
+            ptH_daughters_antiw->SetMarkerStyle(21);
+            ptH_daughters_antiw->SetMarkerColor(kOrange);
+            hs->Add(ptH_daughters_antiw);
+//            TH1F* ptH_daughters_z = new TH1F("ptH daughters z",  "Higgs daughters z transverse momentum", 100, 0., 200.);
+//            ptH_daughters_z->FillRandom("gaus",10000);
+            ptH_daughters_z->SetFillColor(kYellow);
+            ptH_daughters_z->SetMarkerStyle(21);
+            ptH_daughters_z->SetMarkerColor(kYellow);
+            hs->Add(ptH_daughters_z);
+    
+//            TCanvas *cst = new TCanvas("cst","stacked hists",10,10,700,700);
+//            cst->SetFillColor(41);
+//            cst->Divide(2,2);
+//            // in top left pad, draw the stack with defaults
+//            cst->cd(1);
+//            hs->Draw();
+    
+        
     px_hist->Write();
     py_hist->Write();
     pz_hist->Write();
@@ -197,9 +357,38 @@ int main(int argc, char* argv[]) {
     energy_hist_daughters->Write();
     ptH_daughters->Write();
     yH_daughters->Write();
- 
+    
+    ptH_daughters_b->Write();
+    ptH_daughters_antib->Write();
+    ptH_daughters_w->Write();
+    ptH_daughters_antiw->Write();
+    ptH_daughters_z->Write();
+    energy_hist_daughters_b->Write();
+    energy_hist_daughters_antib->Write();
+    energy_hist_daughters_w->Write();
+    energy_hist_daughters_antiw->Write();
+    energy_hist_daughters_z->Write();
+    px_hist_daughters_b->Write();
+    px_hist_daughters_antib->Write();
+    px_hist_daughters_w->Write();
+    px_hist_daughters_antiw->Write();
+    px_hist_daughters_z->Write();
+    py_hist_daughters_b->Write();
+    py_hist_daughters_antib->Write();
+    py_hist_daughters_w->Write();
+    py_hist_daughters_antiw->Write();
+    py_hist_daughters_z->Write();
+    pz_hist_daughters_b->Write();
+    pz_hist_daughters_antib->Write();
+    pz_hist_daughters_w->Write();
+    pz_hist_daughters_antiw->Write();
+    pz_hist_daughters_z->Write();
+    
+    hs->Write();
+    
     f.Close();
     
     f1->Close();
     
-} // end of main function
+        };   // end of main function
+
