@@ -298,39 +298,148 @@ int main(int argc, char* argv[]) {
 
 
     
-            THStack *hs = new THStack("hs","pT");
-            //create three 1-d histograms
-//            TH1F* ptH_daughters_stackedhisto  = new TH1F("ptH daughters stacked histogram",  "Higgs daughters transverse momentum", 100, 0., 200.);
-//            ptH_daughters_b->FillRandom("gaus",20000);
+            THStack *hs = new THStack("hs","pT of Higgs Daughters");
+
             ptH_daughters_b->SetFillColor(kRed);
             ptH_daughters_b->SetMarkerStyle(21);
             ptH_daughters_b->SetMarkerColor(kRed);
             hs->Add(ptH_daughters_b);
-    
-//            TH1F* ptH_daughters_antib  = new TH1F("ptH daughters anti b",  "Higgs daughters anti b transverse momentum", 100, 0., 200.);
-//            ptH_daughters_antib->FillRandom("gaus",15000);
+
             ptH_daughters_antib->SetFillColor(kBlue);
             ptH_daughters_antib->SetMarkerStyle(21);
             ptH_daughters_antib->SetMarkerColor(kBlue);
             hs->Add(ptH_daughters_antib);
-//            TH1F* ptH_daughters_w  = new TH1F("ptH daughters w ",  "Higgs daughters w transverse momentum", 100, 0., 200.);
-//            ptH_daughters_w->FillRandom("gaus",10000);
+
             ptH_daughters_w->SetFillColor(kGreen);
             ptH_daughters_w->SetMarkerStyle(21);
             ptH_daughters_w->SetMarkerColor(kGreen);
             hs->Add(ptH_daughters_w);
-//            TH1F* ptH_daughters_antiw  = new TH1F("ptH daughters anti w",  "Higgs daughters anti w transverse momentum", 100, 0., 200.);
-//            ptH_daughters_antiw->FillRandom("gaus",10000);
+
             ptH_daughters_antiw->SetFillColor(kOrange);
             ptH_daughters_antiw->SetMarkerStyle(21);
             ptH_daughters_antiw->SetMarkerColor(kOrange);
             hs->Add(ptH_daughters_antiw);
-//            TH1F* ptH_daughters_z = new TH1F("ptH daughters z",  "Higgs daughters z transverse momentum", 100, 0., 200.);
-//            ptH_daughters_z->FillRandom("gaus",10000);
+
             ptH_daughters_z->SetFillColor(kYellow);
             ptH_daughters_z->SetMarkerStyle(21);
             ptH_daughters_z->SetMarkerColor(kYellow);
             hs->Add(ptH_daughters_z);
+    
+    
+            THStack *hs2 = new THStack("hs2","Energy of Higgs Daughters");
+    
+            energy_hist_daughters_b->SetFillColor(kRed);
+            energy_hist_daughters_b->SetMarkerStyle(21);
+            energy_hist_daughters_b->SetMarkerColor(kRed);
+            hs2->Add(energy_hist_daughters_b);
+    
+            energy_hist_daughters_antib->SetFillColor(kBlue);
+            energy_hist_daughters_antib->SetMarkerStyle(21);
+            energy_hist_daughters_antib->SetMarkerColor(kBlue);
+            hs2->Add(energy_hist_daughters_antib);
+    
+            energy_hist_daughters_w->SetFillColor(kGreen);
+            energy_hist_daughters_w->SetMarkerStyle(21);
+            energy_hist_daughters_w->SetMarkerColor(kGreen);
+            hs2->Add(energy_hist_daughters_w);
+    
+            energy_hist_daughters_antiw->SetFillColor(kOrange);
+            energy_hist_daughters_antiw->SetMarkerStyle(21);
+            energy_hist_daughters_antiw->SetMarkerColor(kOrange);
+            hs2->Add(energy_hist_daughters_antiw);
+    
+            energy_hist_daughters_z->SetFillColor(kYellow);
+            energy_hist_daughters_z->SetMarkerStyle(21);
+            energy_hist_daughters_z->SetMarkerColor(kYellow);
+            hs2->Add(energy_hist_daughters_z);
+    
+    
+            THStack *hs3 = new THStack("hs3","Higgs Daughters Momentum (X-Direction)");
+    
+            px_hist_daughters_b->SetFillColor(kRed);
+            px_hist_daughters_b->SetMarkerStyle(21);
+            px_hist_daughters_b->SetMarkerColor(kRed);
+            hs3->Add(px_hist_daughters_b);
+    
+            px_hist_daughters_antib->SetFillColor(kBlue);
+            px_hist_daughters_antib->SetMarkerStyle(21);
+            px_hist_daughters_antib->SetMarkerColor(kBlue);
+            hs3->Add(px_hist_daughters_antib);
+    
+            px_hist_daughters_w->SetFillColor(kGreen);
+            px_hist_daughters_w->SetMarkerStyle(21);
+            px_hist_daughters_w->SetMarkerColor(kGreen);
+            hs3->Add(px_hist_daughters_w);
+    
+            px_hist_daughters_antiw->SetFillColor(kOrange);
+            px_hist_daughters_antiw->SetMarkerStyle(21);
+            px_hist_daughters_antiw->SetMarkerColor(kOrange);
+            hs3->Add(px_hist_daughters_antiw);
+    
+            px_hist_daughters_z->SetFillColor(kYellow);
+            px_hist_daughters_z->SetMarkerStyle(21);
+            px_hist_daughters_z->SetMarkerColor(kYellow);
+            hs3->Add(px_hist_daughters_z);
+
+            THStack *hs4 = new THStack("hs4","Higgs Daughters Momentum (Y-Direction)");
+    
+            py_hist_daughters_b->SetFillColor(kRed);
+            py_hist_daughters_b->SetMarkerStyle(21);
+            py_hist_daughters_b->SetMarkerColor(kRed);
+            hs4->Add(py_hist_daughters_b);
+    
+            py_hist_daughters_antib->SetFillColor(kBlue);
+            py_hist_daughters_antib->SetMarkerStyle(21);
+            py_hist_daughters_antib->SetMarkerColor(kBlue);
+            hs4->Add(py_hist_daughters_antib);
+    
+            py_hist_daughters_w->SetFillColor(kGreen);
+            py_hist_daughters_w->SetMarkerStyle(21);
+            py_hist_daughters_w->SetMarkerColor(kGreen);
+            hs4->Add(py_hist_daughters_w);
+    
+            py_hist_daughters_antiw->SetFillColor(kOrange);
+            py_hist_daughters_antiw->SetMarkerStyle(21);
+            py_hist_daughters_antiw->SetMarkerColor(kOrange);
+            hs4->Add(py_hist_daughters_antiw);
+    
+            py_hist_daughters_z->SetFillColor(kYellow);
+            py_hist_daughters_z->SetMarkerStyle(21);
+            py_hist_daughters_z->SetMarkerColor(kYellow);
+            hs4->Add(py_hist_daughters_z);
+
+            THStack *hs5 = new THStack("hs5","Higgs Daughters Momentum (Z-Direction)");
+    
+            pz_hist_daughters_b->SetFillColor(kRed);
+            pz_hist_daughters_b->SetMarkerStyle(21);
+            pz_hist_daughters_b->SetMarkerColor(kRed);
+            hs5->Add(pz_hist_daughters_b);
+    
+            pz_hist_daughters_antib->SetFillColor(kBlue);
+            pz_hist_daughters_antib->SetMarkerStyle(21);
+            pz_hist_daughters_antib->SetMarkerColor(kBlue);
+            hs5->Add(pz_hist_daughters_antib);
+    
+            pz_hist_daughters_w->SetFillColor(kGreen);
+            pz_hist_daughters_w->SetMarkerStyle(21);
+            pz_hist_daughters_w->SetMarkerColor(kGreen);
+            hs5->Add(pz_hist_daughters_w);
+    
+            pz_hist_daughters_antiw->SetFillColor(kOrange);
+            pz_hist_daughters_antiw->SetMarkerStyle(21);
+            pz_hist_daughters_antiw->SetMarkerColor(kOrange);
+            hs5->Add(pz_hist_daughters_antiw);
+    
+            pz_hist_daughters_z->SetFillColor(kYellow);
+            pz_hist_daughters_z->SetMarkerStyle(21);
+            pz_hist_daughters_z->SetMarkerColor(kYellow);
+            hs5->Add(pz_hist_daughters_z);
+
+    
+    
+    
+    
+
     
 //            TCanvas *cst = new TCanvas("cst","stacked hists",10,10,700,700);
 //            cst->SetFillColor(41);
@@ -385,6 +494,10 @@ int main(int argc, char* argv[]) {
     pz_hist_daughters_z->Write();
     
     hs->Write();
+    hs2->Write();
+    hs3->Write();
+    hs4->Write();
+    hs5->Write();
     
     f.Close();
     
