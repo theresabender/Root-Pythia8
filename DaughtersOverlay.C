@@ -62,12 +62,12 @@ void DaughtersOverlay()
 // //   hs->SetLineWidth(1);
 ////    hs->Scale(scale1);
 //    //hs->Draw("same");
-    hs->Draw("same");
+    ptH_overlay->Draw("same");
     c1->Update();
 //    c2->Update();
     
     
-    TLegend *leg = new TLegend(.57,0.64,0.9,0.9);
+    TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
     leg->SetHeader("Legend");
     TLegendEntry* l1 = leg->AddEntry("l", "Bottom Quark","l");
     l1->SetLineColor(kRed);
@@ -84,10 +84,25 @@ void DaughtersOverlay()
     TLegendEntry* l5 = leg->AddEntry("l", "Z Boson","l");
     l5->SetLineColor(kYellow);
     l5->SetLineWidth(5);
-    TLegendEntry* l6 = leg->AddEntry("l", "ptH Daughters", "l");
-    l6->SetLineColor(kPink+7);
-    l6->SetLineWidth(3);
+    TLegendEntry* l6 = leg->AddEntry("l", "Tau+", "l");
+    l6->SetLineColor(kCyan);
+    l6->SetLineWidth(5);
+    TLegendEntry* l7 = leg->AddEntry("l", "Tau-", "l");
+    l7->SetLineColor(kSpring+10);
+    l7->SetLineWidth(5);
+    TLegendEntry* l8 = leg->AddEntry("l", "C Quark", "l");
+    l8->SetLineColor(kViolet);
+    l8->SetLineWidth(5);
+    TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
+    l9->SetLineColor(kAzure-9);
+    l9->SetLineWidth(5);
+    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    l10->SetLineColor(kOrange-5);
+    l10->SetLineWidth(5);
     
+    TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
+    l11->SetLineColor(kPink+7);
+    l11->SetLineWidth(3);
     leg->Draw();
     c1->Update();
     
@@ -129,12 +144,12 @@ void DaughtersOverlay()
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
-    hs3->Draw("same");
+    px_overlay->Draw("same");
     c2->Update();
     //    c2->Update();
     
     
-    TLegend *leg = new TLegend(.57,0.64,0.9,0.9);
+    TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
     leg->SetHeader("Legend");
     TLegendEntry* l1 = leg->AddEntry("l", "Bottom Quark","l");
     l1->SetLineColor(kRed);
@@ -151,10 +166,25 @@ void DaughtersOverlay()
     TLegendEntry* l5 = leg->AddEntry("l", "Z Boson","l");
     l5->SetLineColor(kYellow);
     l5->SetLineWidth(5);
-    TLegendEntry* l6 = leg->AddEntry("l", "ptH Daughters", "l");
-    l6->SetLineColor(kPink+7);
-    l6->SetLineWidth(3);
+    TLegendEntry* l6 = leg->AddEntry("l", "Tau+", "l");
+    l6->SetLineColor(kCyan);
+    l6->SetLineWidth(5);
+    TLegendEntry* l7 = leg->AddEntry("l", "Tau-", "l");
+    l7->SetLineColor(kSpring+10);
+    l7->SetLineWidth(5);
+    TLegendEntry* l8 = leg->AddEntry("l", "C Quark", "l");
+    l8->SetLineColor(kViolet);
+    l8->SetLineWidth(5);
+    TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
+    l9->SetLineColor(kAzure-9);
+    l9->SetLineWidth(5);
+    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    l10->SetLineColor(kOrange-5);
+    l10->SetLineWidth(5);
     
+    TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
+    l11->SetLineColor(kPink+7);
+    l11->SetLineWidth(3);
     leg->Draw();
     c2->Update();
     
@@ -195,12 +225,12 @@ void DaughtersOverlay()
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
-    hs4->Draw("same");
+    py_overlay->Draw("same");
     c3->Update();
     //    c2->Update();
     
     
-    TLegend *leg = new TLegend(.57,0.64,0.9,0.9);
+    TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
     leg->SetHeader("Legend");
     TLegendEntry* l1 = leg->AddEntry("l", "Bottom Quark","l");
     l1->SetLineColor(kRed);
@@ -217,9 +247,26 @@ void DaughtersOverlay()
     TLegendEntry* l5 = leg->AddEntry("l", "Z Boson","l");
     l5->SetLineColor(kYellow);
     l5->SetLineWidth(5);
-    TLegendEntry* l6 = leg->AddEntry("l", "ptH Daughters", "l");
-    l6->SetLineColor(kPink+7);
-    l6->SetLineWidth(3);
+   
+    TLegendEntry* l6 = leg->AddEntry("l", "Tau+", "l");
+    l6->SetLineColor(kCyan);
+    l6->SetLineWidth(5);
+    TLegendEntry* l7 = leg->AddEntry("l", "Tau-", "l");
+    l7->SetLineColor(kSpring+10);
+    l7->SetLineWidth(5);
+    TLegendEntry* l8 = leg->AddEntry("l", "C Quark", "l");
+    l8->SetLineColor(kViolet);
+    l8->SetLineWidth(5);
+    TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
+    l9->SetLineColor(kAzure-9);
+    l9->SetLineWidth(5);
+    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    l10->SetLineColor(kOrange-5);
+    l10->SetLineWidth(5);
+   
+    TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
+    l11->SetLineColor(kPink+7);
+    l11->SetLineWidth(3);
     
     leg->Draw();
     c3->Update();
@@ -261,12 +308,12 @@ void DaughtersOverlay()
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
-    hs5->Draw("same");
+    pz_overlay->Draw("same");
     c4->Update();
     //    c2->Update();
     
     
-    TLegend *leg = new TLegend(.57,0.64,0.9,0.9);
+    TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
     leg->SetHeader("Legend");
     TLegendEntry* l1 = leg->AddEntry("l", "Bottom Quark","l");
     l1->SetLineColor(kRed);
@@ -283,10 +330,25 @@ void DaughtersOverlay()
     TLegendEntry* l5 = leg->AddEntry("l", "Z Boson","l");
     l5->SetLineColor(kYellow);
     l5->SetLineWidth(5);
-    TLegendEntry* l6 = leg->AddEntry("l", "ptH Daughters", "l");
-    l6->SetLineColor(kPink+7);
-    l6->SetLineWidth(3);
+    TLegendEntry* l6 = leg->AddEntry("l", "Tau+", "l");
+    l6->SetLineColor(kCyan);
+    l6->SetLineWidth(5);
+    TLegendEntry* l7 = leg->AddEntry("l", "Tau-", "l");
+    l7->SetLineColor(kSpring+10);
+    l7->SetLineWidth(5);
+    TLegendEntry* l8 = leg->AddEntry("l", "C Quark", "l");
+    l8->SetLineColor(kViolet);
+    l8->SetLineWidth(5);
+    TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
+    l9->SetLineColor(kAzure-9);
+    l9->SetLineWidth(5);
+    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    l10->SetLineColor(kOrange-5);
+    l10->SetLineWidth(5);
     
+    TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
+    l11->SetLineColor(kPink+7);
+    l11->SetLineWidth(3);
     leg->Draw();
     c4->Update();
     
@@ -327,12 +389,12 @@ void DaughtersOverlay()
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
-    hs2->Draw("same");
+    energy_overlay->Draw("same");
     c5->Update();
     //    c2->Update();
     
     
-    TLegend *leg = new TLegend(.57,0.64,0.9,0.9);
+    TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
     leg->SetHeader("Legend");
     TLegendEntry* l1 = leg->AddEntry("l", "Bottom Quark","l");
     l1->SetLineColor(kRed);
@@ -349,10 +411,25 @@ void DaughtersOverlay()
     TLegendEntry* l5 = leg->AddEntry("l", "Z Boson","l");
     l5->SetLineColor(kYellow);
     l5->SetLineWidth(5);
-    TLegendEntry* l6 = leg->AddEntry("l", "ptH Daughters", "l");
-    l6->SetLineColor(kPink+7);
-    l6->SetLineWidth(3);
+    TLegendEntry* l6 = leg->AddEntry("l", "Tau+", "l");
+    l6->SetLineColor(kCyan);
+    l6->SetLineWidth(5);
+    TLegendEntry* l7 = leg->AddEntry("l", "Tau-", "l");
+    l7->SetLineColor(kSpring+10);
+    l7->SetLineWidth(5);
+    TLegendEntry* l8 = leg->AddEntry("l", "C Quark", "l");
+    l8->SetLineColor(kViolet);
+    l8->SetLineWidth(5);
+    TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
+    l9->SetLineColor(kAzure-9);
+    l9->SetLineWidth(5);
+    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    l10->SetLineColor(kOrange-5);
+    l10->SetLineWidth(5);
     
+    TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
+    l11->SetLineColor(kPink+7);
+    l11->SetLineWidth(3);
     leg->Draw();
     c5->Update();
     
