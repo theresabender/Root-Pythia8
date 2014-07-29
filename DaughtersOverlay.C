@@ -62,7 +62,7 @@ void DaughtersOverlay()
 ////    hs->Scale(scale1);
 //    //hs->Draw("same");
     hs->Draw("same");
-   c1->Update();
+    c1->Update();
 //    c2->Update();
     
     
@@ -88,6 +88,7 @@ void DaughtersOverlay()
     l6->SetLineWidth(3);
     
     leg->Draw();
-
+    c1->Update();
     
+    c1->SaveAs("Output.png");
 }
