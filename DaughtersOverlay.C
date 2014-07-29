@@ -29,7 +29,7 @@ void DaughtersOverlay()
 {
       TFile *f = new TFile("output.root");
     TH1F *ptH_daughters = (TH1F*)f->Get("ptH daughters");
-    THStack * hs = (THStack*)f.Get("hs");
+    THStack *hs = (THStack*)f->Get("hs");
     
    TCanvas *c1 = new TCanvas("c1","Daughter Overlay ptH 1",600,400);
     
@@ -62,7 +62,7 @@ void DaughtersOverlay()
 ////    hs->Scale(scale1);
 //    //hs->Draw("same");
     hs->Draw("same");
-////    c1->Update();
+   c1->Update();
 //    c2->Update();
     
     
@@ -89,4 +89,5 @@ void DaughtersOverlay()
     
     leg->Draw();
 
+    
 }
