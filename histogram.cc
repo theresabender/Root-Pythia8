@@ -30,6 +30,15 @@
 #include "TFile.h"
 #include "TTree.h" /* this */
 #include "THStack.h"
+#include "TLegend.h"
+#include "TLegendEntry.h"
+
+// for overlay
+#include "TCanvas.h"
+#include "TStyle.h"
+#include "TH1.h"
+#include "TGaxis.h"
+#include "TRandom.h"
 
 
 using namespace Pythia8;
@@ -104,10 +113,32 @@ int main(int argc, char* argv[]) {
     TH1F* pz_hist_daughters_antiw = new TH1F("pz daughters anti w", "Higgs Daughters anti w Momentum (Z-Direction)", 100, -500., 500.);
     TH1F* pz_hist_daughters_z = new TH1F("pz daughters z", "Higgs Daughters Momentum z (Z-Direction)", 100, -500., 500.);
     
-
+    
+//// Overlay
+//    TFile * Overlay = new TFile("output20k-2.root");
+//    TH1F * ptH_daughters = (TH1F*)f.Get("daughters");
+//    TH1F * hs = (TH1F*)f.Get("stacked daughters");
+////    
+//    TCanvas *c1 = new TCanvas("c1","Daughter overlay ptH",600,400);
+//    
+//    //create/fill draw h1
+//    gStyle->SetOptStat(kFALSE);
+// //   ptH_daughters->SetLineColor(kBlack);
+//    ptH_daughters->SetLineWidth(1);
+//    ptH_daughters->Draw();
+//    c1->Update();
+//    
+//    //scale hint1 to the pad coordinates
+//    Float_t rightmax1 = 1.1*ptH_daughters->GetMaximum();
+//    //Float_t scale1 = gPad->GetUymax()/rightmax1;
+//  //  hs->SetLineColor(kRed);
+////    hs->Scale(scale1);
+//    hs->Draw("same");
+    
+    
     // this is event cycle
     nEntries = T->GetEntries();
-    //nEntries = 100;
+//    nEntries = 100;
     cout << "nEntries=" << nEntries << endl;
     
     for(Int_t i=0; i<nEntries; ++i) {
@@ -293,6 +324,7 @@ int main(int argc, char* argv[]) {
     
     
     cout << "nEntries=" << nEntries << endl;
+
     
     f.cd();
 
@@ -324,6 +356,29 @@ int main(int argc, char* argv[]) {
             ptH_daughters_z->SetMarkerStyle(21);
             ptH_daughters_z->SetMarkerColor(kYellow);
             hs->Add(ptH_daughters_z);
+
+    
+
+
+//            TLegend *leg = new TLegend(0.1,0.7,0.4,0.9);
+//            leg->SetHeader("Legend");
+//            TLegendEntry* l1 = leg->AddEntry("l", "Bottom Quark","l");
+//            l1->SetLineColor(kRed);
+//            l1->SetLineWidth(4);
+//            TLegendEntry* l2 = leg->AddEntry("l","Anti-Bottom Quark","l");
+//            l2->SetLineColor(kBlue);
+//            l2->SetLineWidth(4);
+//            TLegendEntry* l3 = leg->AddEntry("fl","W Boson","l");
+//            l3->SetLineColor(kGreen);
+//            l3->SetLineWidth(4);
+//            TLegendEntry* l4 = leg->AddEntry("l", "Anti-W Boson","l");
+//            l4->SetLineColor(kOrange);
+//            l4->SetLineWidth(4);
+//            TLegendEntry* l5 = leg->AddEntry("l", "Z","l");
+//            l5->SetLineColor(kYellow);
+//            l5->SetLineWidth(4);
+    
+    
     
     
             THStack *hs2 = new THStack("hs2","Energy of Higgs Daughters");
@@ -436,7 +491,26 @@ int main(int argc, char* argv[]) {
             hs5->Add(pz_hist_daughters_z);
 
     
-    
+
+//    void overlay()
+//    {
+//
+//        TFile *f = new TFile("output20k-2.root");
+//        TH1I * hs = (TH1I*)f.Get("daughters");
+//        TH1I * ptH_daughters = (TH1I*)f.Get("finaldaughters");
+//  
+//        
+//        
+//        
+//        TCanvas *c1 = new TCanvas("c1","hists with different scales",600,400);
+//        
+//        //create/fill draw h1
+//        gStyle->SetOptStat(kFALSE);
+//        daughters->SetLineColor(kBlack);
+//        daughters->SetLineWidth(1);
+//        daughters_hist->Draw();
+//        c1->Update();  
+
     
     
 
@@ -498,6 +572,7 @@ int main(int argc, char* argv[]) {
     hs3->Write();
     hs4->Write();
     hs5->Write();
+    Overlay->Write();
     
     f.Close();
     
