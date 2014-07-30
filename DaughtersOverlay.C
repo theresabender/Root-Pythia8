@@ -32,14 +32,14 @@ void DaughtersOverlay()
     TH1F *ptH_daughters = (TH1F*)f->Get("ptH daughters");
     THStack *ptH_overlay = (THStack*)f->Get("ptH overlay");
     
-   TCanvas *c1 = new TCanvas("c1","Daughter Overlay ptH 1",600,400);
+   TCanvas *c1 = new TCanvas("c1","Daughter Overlay ptH 1",1800,1200);
     
 ////    TH1I * hs = (TH1I*)f.Get("daughters");
 ////    c1->cd();
 //    //create/fill draw h1
      gStyle->SetOptStat(kFALSE);
     ptH_daughters->SetLineColor(kPink+7);
-    ptH_daughters->SetLineWidth(3);
+    ptH_daughters->SetLineWidth(5);
 //    cout << &ptH_daughters << ptH_daughters << endl;
 //    ptH_daughters->Draw();
 ////    c1->Update();
@@ -96,13 +96,13 @@ void DaughtersOverlay()
     TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
     l9->SetLineColor(kAzure-9);
     l9->SetLineWidth(5);
-    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    TLegendEntry* l10 = leg->AddEntry("l", "Photon", "l");
     l10->SetLineColor(kOrange-5);
     l10->SetLineWidth(5);
     
     TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
     l11->SetLineColor(kPink+7);
-    l11->SetLineWidth(3);
+    l11->SetLineWidth(5);
     leg->Draw();
     c1->Update();
     
@@ -114,14 +114,14 @@ void DaughtersOverlay()
     TH1F *px_hist_daughters = (TH1F*)f->Get("px daughters");
     THStack *px_overlay = (THStack*)f->Get("px overlay");
     
-    TCanvas *c2 = new TCanvas("c2","Daughter Overlay px",600,400);
+    TCanvas *c2 = new TCanvas("c2","Daughter Overlay px",1800,1200);
     
     ////    TH1I * hs = (TH1I*)f.Get("daughters");
     ////    c1->cd();
     //    //create/fill draw h1
     gStyle->SetOptStat(kFALSE);
     px_hist_daughters->SetLineColor(kPink+7);
-    px_hist_daughters->SetLineWidth(3);
+    px_hist_daughters->SetLineWidth(5);
     //    cout << &ptH_daughters << ptH_daughters << endl;
     //    ptH_daughters->Draw();
     ////    c1->Update();
@@ -178,13 +178,13 @@ void DaughtersOverlay()
     TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
     l9->SetLineColor(kAzure-9);
     l9->SetLineWidth(5);
-    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    TLegendEntry* l10 = leg->AddEntry("l", "Photon", "l");
     l10->SetLineColor(kOrange-5);
     l10->SetLineWidth(5);
     
     TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
     l11->SetLineColor(kPink+7);
-    l11->SetLineWidth(3);
+    l11->SetLineWidth(5);
     leg->Draw();
     c2->Update();
     
@@ -195,14 +195,14 @@ void DaughtersOverlay()
     TH1F *py_hist_daughters = (TH1F*)f->Get("py daughters");
     THStack *py_overlay = (THStack*)f->Get("py overlay");
     
-    TCanvas *c3 = new TCanvas("c3","py daughters",600,400);
+    TCanvas *c3 = new TCanvas("c3","py daughters",1800,1200);
     
     ////    TH1I * hs = (TH1I*)f.Get("daughters");
     ////    c1->cd();
     //    //create/fill draw h1
     gStyle->SetOptStat(kFALSE);
     py_hist_daughters->SetLineColor(kPink+7);
-    py_hist_daughters->SetLineWidth(3);
+    py_hist_daughters->SetLineWidth(5);
     //    cout << &ptH_daughters << ptH_daughters << endl;
     //    ptH_daughters->Draw();
     ////    c1->Update();
@@ -260,13 +260,13 @@ void DaughtersOverlay()
     TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
     l9->SetLineColor(kAzure-9);
     l9->SetLineWidth(5);
-    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    TLegendEntry* l10 = leg->AddEntry("l", "Photon", "l");
     l10->SetLineColor(kOrange-5);
     l10->SetLineWidth(5);
    
     TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
     l11->SetLineColor(kPink+7);
-    l11->SetLineWidth(3);
+    l11->SetLineWidth(5);
     
     leg->Draw();
     c3->Update();
@@ -278,14 +278,14 @@ void DaughtersOverlay()
     TH1F *pz_hist_daughters = (TH1F*)f->Get("pz daughters");
     THStack *pz_overlay = (THStack*)f->Get("pz overlay");
     
-    TCanvas *c4 = new TCanvas("c4","pz daughters",600,400);
+    TCanvas *c4 = new TCanvas("c4","pz daughters",1800,1200);
     
     ////    TH1I * hs = (TH1I*)f.Get("daughters");
     ////    c1->cd();
     //    //create/fill draw h1
     gStyle->SetOptStat(kFALSE);
     pz_hist_daughters->SetLineColor(kPink+7);
-    pz_hist_daughters->SetLineWidth(3);
+    pz_hist_daughters->SetLineWidth(5);
     //    cout << &ptH_daughters << ptH_daughters << endl;
     //    ptH_daughters->Draw();
     ////    c1->Update();
@@ -342,13 +342,13 @@ void DaughtersOverlay()
     TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
     l9->SetLineColor(kAzure-9);
     l9->SetLineWidth(5);
-    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    TLegendEntry* l10 = leg->AddEntry("l", "Photon", "l");
     l10->SetLineColor(kOrange-5);
     l10->SetLineWidth(5);
     
     TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
     l11->SetLineColor(kPink+7);
-    l11->SetLineWidth(3);
+    l11->SetLineWidth(5);
     leg->Draw();
     c4->Update();
     
@@ -359,14 +359,14 @@ void DaughtersOverlay()
     TH1F *energy_hist_daughters = (TH1F*)f->Get("energy daughters");
     THStack *energy_overlay = (THStack*)f->Get("energy overlay");
     
-    TCanvas *c5 = new TCanvas("c5","energy daughters",600,400);
+    TCanvas *c5 = new TCanvas("c5","energy daughters",1800,1200);
     
     ////    TH1I * hs = (TH1I*)f.Get("daughters");
     ////    c1->cd();
     //    //create/fill draw h1
     gStyle->SetOptStat(kFALSE);
     energy_hist_daughters->SetLineColor(kPink+7);
-    energy_hist_daughters->SetLineWidth(3);
+    energy_hist_daughters->SetLineWidth(5);
     //    cout << &ptH_daughters << ptH_daughters << endl;
     //    ptH_daughters->Draw();
     ////    c1->Update();
@@ -423,13 +423,13 @@ void DaughtersOverlay()
     TLegendEntry* l9 = leg->AddEntry("l", "Anti-C Quark", "l");
     l9->SetLineColor(kAzure-9);
     l9->SetLineWidth(5);
-    TLegendEntry* l10 = leg->AddEntry("l", "Gamma", "l");
+    TLegendEntry* l10 = leg->AddEntry("l", "Photon", "l");
     l10->SetLineColor(kOrange-5);
     l10->SetLineWidth(5);
     
     TLegendEntry* l11 = leg->AddEntry("l", "ptH Daughters", "l");
     l11->SetLineColor(kPink+7);
-    l11->SetLineWidth(3);
+    l11->SetLineWidth(5);
     leg->Draw();
     c5->Update();
     
