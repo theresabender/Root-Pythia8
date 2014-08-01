@@ -44,6 +44,13 @@
 using namespace Pythia8;
 
 int main(int argc, char* argv[]) {
+    
+    Int_t cms = 14;
+    if (argc == 2) {
+        cms = atoi (argv[1]);
+    }
+
+    
     Int_t nEntries;
     Int_t ndeb = 1;
 
@@ -51,8 +58,16 @@ int main(int argc, char* argv[]) {
     // Create the ROOT application environment.
     TApplication theApp("pythia8test", &argc, argv);
     
-    TFile f("output.root", "recreate");
-    TFile *f1 = new TFile("sims.root","READ");
+    char filename[100]; // = "sims_%d.root" + en;
+    sprintf(filename, "output_%d.root", cms);
+    
+//    TFile f("output_14.root", "recreate");
+    TFile f(filename, "recreate");
+    
+    sprintf(filename, "sims_%d.root", cms);
+    
+ //   TFile *f1 = new TFile("sims_14.root","READ");
+    TFile *f1 = new TFile(filename,"READ");
     TTree *T = (TTree*)f1->Get("T");
     
     TBranch *b_event = (TBranch*)T->GetBranch("event");
@@ -76,9 +91,9 @@ int main(int argc, char* argv[]) {
     TH1I* finaldaughhters_hist = new TH1I("finaldaughters", "Higgs Final Daughters", 61, -30, 30);
     TH1I* nonfinaldaughters_hist = new TH1I("nonfinaldaughters", "Higgs Non-final Daughters", 61, -30, 30);
     TH1F* yH_daughters = new TH1F("etaH daughters", "Higgs daughters pseudorapidity", 100, -6.28, 6.28);
-    TH1F* ptH_daughters  = new TH1F("ptH daughters",  "Higgs daughters transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters  = new TH1F("ptH daughters",  "Higgs Daughters Transverse Momentum", 100, 0., 200.);
     TH1D* m0_daughters = new TH1D("mass daughters", "Mass of Higgs daughters", 100, 0., 200.);
-    TH1F* energy_hist_daughters = new TH1F("energy daughters", "Energy of Higgs daughters", 100, 0., 500.);
+    TH1F* energy_hist_daughters = new TH1F("energy daughters", "Energy of Higgs Daughters", 100, 0., 500.);
     TH1F* px_hist_daughters = new TH1F("px daughters", "Higgs Daughters Momentum (X-Direction)", 100, -300., 300.);
     TH1F* py_hist_daughters = new TH1F("py daughters", "Higgs Daughters Momentum (Y-Direction)", 100, -300., 300.);
     TH1F* pz_hist_daughters = new TH1F("pz daughters", "Higgs Daughters Momentum (Z-Direction)", 100, -500., 500.);
@@ -88,12 +103,22 @@ int main(int argc, char* argv[]) {
     TH1F* ptH_daughters_w  = new TH1F("ptH daughters w ",  "Higgs daughters w transverse momentum", 100, 0., 200.);
     TH1F* ptH_daughters_antiw  = new TH1F("ptH daughters anti w",  "Higgs daughters anti w transverse momentum", 100, 0., 200.);
     TH1F* ptH_daughters_z = new TH1F("ptH daughters z",  "Higgs daughters z transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_t  = new TH1F("ptH daughters t",  "Higgs daughters t transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_antit  = new TH1F("ptH daughters anti t",  "Higgs daughters anti t transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_c  = new TH1F("ptH daughters c ",  "Higgs daughters c transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_antic  = new TH1F("ptH daughters anti c",  "Higgs daughters anti c transverse momentum", 100, 0., 200.);
+    TH1F* ptH_daughters_gamma = new TH1F("ptH daughters gamma",  "Higgs daughters gamma transverse momentum", 100, 0., 200.);
     
     TH1F* energy_hist_daughters_b = new TH1F("energy daughters b", "Energy of Higgs daughters b quark", 100, 0., 500.);
     TH1F* energy_hist_daughters_antib = new TH1F("energy daughters anti b", "Energy of Higgs daughters anti b quark", 100, 0., 500.);
     TH1F* energy_hist_daughters_w = new TH1F("energy daughters w", "Energy of Higgs daughters w", 100, 0., 500.);
     TH1F* energy_hist_daughters_antiw = new TH1F("energy daughters anti w", "Energy of Higgs daughters anti w", 100, 0., 500.);
     TH1F* energy_hist_daughters_z = new TH1F("energy daughters z", "Energy of Higgs daughters z", 100, 0., 500.);
+    TH1F* energy_hist_daughters_t = new TH1F("energy daughters t", "Energy of Higgs daughters t ", 100, 0., 500.);
+    TH1F* energy_hist_daughters_antit = new TH1F("energy daughters anti b", "Energy of Higgs daughters anti t ", 100, 0., 500.);
+    TH1F* energy_hist_daughters_c = new TH1F("energy daughters c", "Energy of Higgs daughters c", 100, 0., 500.);
+    TH1F* energy_hist_daughters_antic = new TH1F("energy daughters anti c", "Energy of Higgs daughters anti c", 100, 0., 500.);
+    TH1F* energy_hist_daughters_gamma = new TH1F("energy daughters gamma", "Energy of Higgs daughters gamma", 100, 0., 500.);
     
     TH1F* px_hist_daughters_b = new TH1F("px daughters b", "Higgs Daughters Momentum b (X-Direction)", 100, -300., 300.);
     TH1F* px_hist_daughters_antib = new TH1F("px daughters anti b", "Higgs Daughters Momentum anti b (X-Direction)", 100, -300., 300.);
@@ -101,17 +126,37 @@ int main(int argc, char* argv[]) {
     TH1F* px_hist_daughters_antiw = new TH1F("px daughters anti w", "Higgs Daughters Momentum anti w (X-Direction)", 100, -300., 300.);
     TH1F* px_hist_daughters_z = new TH1F("px daughters z", "Higgs Daughters Momentum z (X-Direction)", 100, -300., 300.);
     
+    TH1F* px_hist_daughters_t = new TH1F("px daughters t", "Higgs Daughters Momentum t (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_antit = new TH1F("px daughters anti t", "Higgs Daughters Momentum anti t (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_c = new TH1F("px daughters c", "Higgs Daughters Momentum c (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_antic = new TH1F("px daughters anti c", "Higgs Daughters Momentum anti c (X-Direction)", 100, -300., 300.);
+    TH1F* px_hist_daughters_gamma = new TH1F("px daughters gamma", "Higgs Daughters Momentum gamma (X-Direction)", 100, -300., 300.);
+    
     TH1F* py_hist_daughters_b = new TH1F("py daughters b", "Higgs Daughters Momentum b (Y-Direction)", 100, -300., 300.);
     TH1F* py_hist_daughters_antib = new TH1F("py daughters anti b", "Higgs Daughters Momentum anti b (Y-Direction)", 100, -300., 300.);
     TH1F* py_hist_daughters_w = new TH1F("py daughters w", "Higgs Daughters Momentum w (Y-Direction)", 100, -300., 300.);
     TH1F* py_hist_daughters_antiw = new TH1F("py daughters anti w", "Higgs Daughters Momentum anti w (Y-Direction)", 100, -300., 300.);
     TH1F* py_hist_daughters_z = new TH1F("py daughters z", "Higgs Daughters Momentum z (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_t = new TH1F("py daughters t", "Higgs Daughters Momentum t (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_antit = new TH1F("py daughters anti t", "Higgs Daughters Momentum anti t (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_c = new TH1F("py daughters c", "Higgs Daughters Momentum c (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_antic = new TH1F("py daughters anti c", "Higgs Daughters Momentum anti c (Y-Direction)", 100, -300., 300.);
+    TH1F* py_hist_daughters_gamma = new TH1F("py daughters gamma", "Higgs Daughters Momentum gamma (Y-Direction)", 100, -300., 300.);
+
+    
     
     TH1F* pz_hist_daughters_b = new TH1F("pz daughters b", "Higgs Daughters Momentum b (Z-Direction)", 100, -500., 500.);
     TH1F* pz_hist_daughters_antib = new TH1F("pz daughters anti b", "Higgs Daughters anti b Momentum (Z-Direction)", 100, -500., 500.);
     TH1F* pz_hist_daughters_w = new TH1F("pz daughters w", "Higgs Daughters Momentum w (Z-Direction)", 100, -500., 500.);
     TH1F* pz_hist_daughters_antiw = new TH1F("pz daughters anti w", "Higgs Daughters anti w Momentum (Z-Direction)", 100, -500., 500.);
     TH1F* pz_hist_daughters_z = new TH1F("pz daughters z", "Higgs Daughters Momentum z (Z-Direction)", 100, -500., 500.);
+    
+    TH1F* pz_hist_daughters_t = new TH1F("pz daughters t", "Higgs Daughters Momentum t (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_antit = new TH1F("pz daughters anti t", "Higgs Daughters anti t Momentum (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_c = new TH1F("pz daughters c", "Higgs Daughters Momentum c (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_antic = new TH1F("pz daughters anti c", "Higgs Daughters anti c Momentum (Z-Direction)", 100, -500., 500.);
+    TH1F* pz_hist_daughters_gamma = new TH1F("pz daughters gamma", "Higgs Daughters Momentum gamma (Z-Direction)", 100, -500., 500.);
+
     
     
 //// Overlay
@@ -284,10 +329,95 @@ int main(int argc, char* argv[]) {
                             pz_hist_daughters_z->Fill(pz_daughters);
                             
                         } // if z
+                            
+                        if (pdg_daughters == -15){ // tau+
+                                
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                                
+                            ptH_daughters_t->Fill(pt_daughters);
+                            energy_hist_daughters_t->Fill(energy_daughters);
+                            px_hist_daughters_t->Fill(px_daughters);
+                            py_hist_daughters_t->Fill(py_daughters);
+                            pz_hist_daughters_t->Fill(pz_daughters);
+                                
+                        } // if tau+
+                            
+                        if (pdg_daughters == 15){ // tau-
+                                
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                                
+                            ptH_daughters_antit->Fill(pt_daughters);
+                            energy_hist_daughters_antit->Fill(energy_daughters);
+                            px_hist_daughters_antit->Fill(px_daughters);
+                            py_hist_daughters_antit->Fill(py_daughters);
+                            pz_hist_daughters_antit->Fill(pz_daughters);
+                            
+                        } // if tau-
+                            
+                        if (pdg_daughters == 4){ // c
+                                
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                                
+                            ptH_daughters_c->Fill(pt_daughters);
+                            energy_hist_daughters_c->Fill(energy_daughters);
+                            px_hist_daughters_c->Fill(px_daughters);
+                            py_hist_daughters_c->Fill(py_daughters);
+                            pz_hist_daughters_c->Fill(pz_daughters);
+                                
+                            } // if c
+                            
+                        if (pdg_daughters == -4){ // anti c
+                                
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                                
+                            ptH_daughters_antic->Fill(pt_daughters);
+                            energy_hist_daughters_antic->Fill(energy_daughters);
+                            px_hist_daughters_antic->Fill(px_daughters);
+                            py_hist_daughters_antic->Fill(py_daughters);
+                            pz_hist_daughters_antic->Fill(pz_daughters);
+                                
+                        } // if anti c
+                            
+                        if (pdg_daughters == 22){ // gamma
+                                
+                            Double_t pt_daughters  = event->at(daughter_row_number).pT();
+                            Double_t energy_daughters = event->at(daughter_row_number).e();
+                            Double_t px_daughters = event->at(daughter_row_number).px();
+                            Double_t py_daughters = event->at(daughter_row_number).py();
+                            Double_t pz_daughters = event->at(daughter_row_number).pz();
+                            
+                            ptH_daughters_gamma->Fill(pt_daughters);
+                            energy_hist_daughters_gamma->Fill(energy_daughters);
+                            px_hist_daughters_gamma->Fill(px_daughters);
+                            py_hist_daughters_gamma->Fill(py_daughters);
+                            pz_hist_daughters_gamma->Fill(pz_daughters);
+                                
+                        } // if gamma
+                            
+                            
+                            
+                            
+                            
 
                             granddaughterList = event->daughterList(daughter_row_number);
                             Int_t Ngrandaughters = granddaughterList.size();
-                            
+                        
 
                         if (Ngrandaughters > 1){
                             nonfinaldaughters_hist->Fill(pdg_daughters);
@@ -330,32 +460,57 @@ int main(int argc, char* argv[]) {
 
 
     
-            THStack *hs = new THStack("hs","pT of Higgs Daughters");
+            THStack *ptH_overlay = new THStack("ptH overlay","ptH of Higgs Daughters");
 
             ptH_daughters_b->SetFillColor(kRed);
             ptH_daughters_b->SetMarkerStyle(21);
             ptH_daughters_b->SetMarkerColor(kRed);
-            hs->Add(ptH_daughters_b);
+            ptH_overlay->Add(ptH_daughters_b);
 
             ptH_daughters_antib->SetFillColor(kBlue);
             ptH_daughters_antib->SetMarkerStyle(21);
             ptH_daughters_antib->SetMarkerColor(kBlue);
-            hs->Add(ptH_daughters_antib);
+            ptH_overlay->Add(ptH_daughters_antib);
 
             ptH_daughters_w->SetFillColor(kGreen);
             ptH_daughters_w->SetMarkerStyle(21);
             ptH_daughters_w->SetMarkerColor(kGreen);
-            hs->Add(ptH_daughters_w);
+            ptH_overlay->Add(ptH_daughters_w);
 
             ptH_daughters_antiw->SetFillColor(kOrange);
             ptH_daughters_antiw->SetMarkerStyle(21);
             ptH_daughters_antiw->SetMarkerColor(kOrange);
-            hs->Add(ptH_daughters_antiw);
+            ptH_overlay->Add(ptH_daughters_antiw);
 
             ptH_daughters_z->SetFillColor(kYellow);
             ptH_daughters_z->SetMarkerStyle(21);
             ptH_daughters_z->SetMarkerColor(kYellow);
-            hs->Add(ptH_daughters_z);
+            ptH_overlay->Add(ptH_daughters_z);
+    
+            ptH_daughters_t->SetFillColor(kCyan);
+            ptH_daughters_t->SetMarkerStyle(21);
+            ptH_daughters_t->SetMarkerColor(kCyan);
+            ptH_overlay->Add(ptH_daughters_t);
+    
+            ptH_daughters_antit->SetFillColor(kSpring+10);
+            ptH_daughters_antit->SetMarkerStyle(21);
+            ptH_daughters_antit->SetMarkerColor(kSpring+10);
+            ptH_overlay->Add(ptH_daughters_antit);
+    
+            ptH_daughters_c->SetFillColor(kViolet-3);
+            ptH_daughters_c->SetMarkerStyle(21);
+            ptH_daughters_c->SetMarkerColor(kViolet-3);
+            ptH_overlay->Add(ptH_daughters_c);
+    
+            ptH_daughters_antic->SetFillColor(kAzure-9);
+            ptH_daughters_antic->SetMarkerStyle(21);
+            ptH_daughters_antic->SetMarkerColor(kAzure-9);
+            ptH_overlay->Add(ptH_daughters_antic);
+    
+            ptH_daughters_gamma->SetFillColor(kOrange-5);
+            ptH_daughters_gamma->SetMarkerStyle(21);
+            ptH_daughters_gamma->SetMarkerColor(kOrange-5);
+            ptH_overlay->Add(ptH_daughters_gamma);
 
     
 
@@ -381,114 +536,216 @@ int main(int argc, char* argv[]) {
     
     
     
-            THStack *hs2 = new THStack("hs2","Energy of Higgs Daughters");
+            THStack *energy_overlay = new THStack("energy overlay","Energy of Higgs Daughters");
     
             energy_hist_daughters_b->SetFillColor(kRed);
             energy_hist_daughters_b->SetMarkerStyle(21);
             energy_hist_daughters_b->SetMarkerColor(kRed);
-            hs2->Add(energy_hist_daughters_b);
+            energy_overlay->Add(energy_hist_daughters_b);
     
             energy_hist_daughters_antib->SetFillColor(kBlue);
             energy_hist_daughters_antib->SetMarkerStyle(21);
             energy_hist_daughters_antib->SetMarkerColor(kBlue);
-            hs2->Add(energy_hist_daughters_antib);
+            energy_overlay->Add(energy_hist_daughters_antib);
     
             energy_hist_daughters_w->SetFillColor(kGreen);
             energy_hist_daughters_w->SetMarkerStyle(21);
             energy_hist_daughters_w->SetMarkerColor(kGreen);
-            hs2->Add(energy_hist_daughters_w);
+            energy_overlay->Add(energy_hist_daughters_w);
     
             energy_hist_daughters_antiw->SetFillColor(kOrange);
             energy_hist_daughters_antiw->SetMarkerStyle(21);
             energy_hist_daughters_antiw->SetMarkerColor(kOrange);
-            hs2->Add(energy_hist_daughters_antiw);
+            energy_overlay->Add(energy_hist_daughters_antiw);
     
             energy_hist_daughters_z->SetFillColor(kYellow);
             energy_hist_daughters_z->SetMarkerStyle(21);
             energy_hist_daughters_z->SetMarkerColor(kYellow);
-            hs2->Add(energy_hist_daughters_z);
+            energy_overlay->Add(energy_hist_daughters_z);
+    
+            energy_hist_daughters_t->SetFillColor(kCyan);
+            energy_hist_daughters_t->SetMarkerStyle(21);
+            energy_hist_daughters_t->SetMarkerColor(kCyan);
+            energy_overlay->Add(energy_hist_daughters_t);
+    
+            energy_hist_daughters_antit->SetFillColor(kSpring+10);
+            energy_hist_daughters_antit->SetMarkerStyle(21);
+            energy_hist_daughters_antit->SetMarkerColor(kSpring+10);
+            energy_overlay->Add(energy_hist_daughters_antit);
+    
+            energy_hist_daughters_c->SetFillColor(kViolet-3);
+            energy_hist_daughters_c->SetMarkerStyle(21);
+            energy_hist_daughters_c->SetMarkerColor(kViolet-3);
+            energy_overlay->Add(energy_hist_daughters_c);
+    
+            energy_hist_daughters_antic->SetFillColor(kAzure-9);
+            energy_hist_daughters_antic->SetMarkerStyle(21);
+            energy_hist_daughters_antic->SetMarkerColor(kAzure-9);
+            energy_overlay->Add(energy_hist_daughters_antic);
+    
+            energy_hist_daughters_gamma->SetFillColor(kOrange-5);
+            energy_hist_daughters_gamma->SetMarkerStyle(21);
+            energy_hist_daughters_gamma->SetMarkerColor(kOrange-5);
+            energy_overlay->Add(energy_hist_daughters_gamma);
     
     
-            THStack *hs3 = new THStack("hs3","Higgs Daughters Momentum (X-Direction)");
+            THStack *px_overlay = new THStack("px overlay","Higgs Daughters Momentum (X-Direction)");
     
             px_hist_daughters_b->SetFillColor(kRed);
             px_hist_daughters_b->SetMarkerStyle(21);
             px_hist_daughters_b->SetMarkerColor(kRed);
-            hs3->Add(px_hist_daughters_b);
+            px_overlay->Add(px_hist_daughters_b);
     
             px_hist_daughters_antib->SetFillColor(kBlue);
             px_hist_daughters_antib->SetMarkerStyle(21);
             px_hist_daughters_antib->SetMarkerColor(kBlue);
-            hs3->Add(px_hist_daughters_antib);
+            px_overlay->Add(px_hist_daughters_antib);
     
             px_hist_daughters_w->SetFillColor(kGreen);
             px_hist_daughters_w->SetMarkerStyle(21);
             px_hist_daughters_w->SetMarkerColor(kGreen);
-            hs3->Add(px_hist_daughters_w);
+            px_overlay->Add(px_hist_daughters_w);
     
             px_hist_daughters_antiw->SetFillColor(kOrange);
             px_hist_daughters_antiw->SetMarkerStyle(21);
             px_hist_daughters_antiw->SetMarkerColor(kOrange);
-            hs3->Add(px_hist_daughters_antiw);
+            px_overlay->Add(px_hist_daughters_antiw);
     
             px_hist_daughters_z->SetFillColor(kYellow);
             px_hist_daughters_z->SetMarkerStyle(21);
             px_hist_daughters_z->SetMarkerColor(kYellow);
-            hs3->Add(px_hist_daughters_z);
+            px_overlay->Add(px_hist_daughters_z);
+    
+            px_hist_daughters_t->SetFillColor(kCyan);
+            px_hist_daughters_t->SetMarkerStyle(21);
+            px_hist_daughters_t->SetMarkerColor(kCyan);
+            px_overlay->Add(px_hist_daughters_t);
+    
+            px_hist_daughters_antit->SetFillColor(kSpring+10);
+            px_hist_daughters_antit->SetMarkerStyle(21);
+            px_hist_daughters_antit->SetMarkerColor(kSpring+10);
+            px_overlay->Add(px_hist_daughters_antit);
+    
+            px_hist_daughters_c->SetFillColor(kViolet);
+            px_hist_daughters_c->SetMarkerStyle(21);
+            px_hist_daughters_c->SetMarkerColor(kViolet);
+            px_overlay->Add(px_hist_daughters_c);
+    
+            px_hist_daughters_antic->SetFillColor(kAzure-9);
+            px_hist_daughters_antic->SetMarkerStyle(21);
+            px_hist_daughters_antic->SetMarkerColor(kAzure-9);
+            px_overlay->Add(px_hist_daughters_antic);
+    
+            px_hist_daughters_gamma->SetFillColor(kOrange-5);
+            px_hist_daughters_gamma->SetMarkerStyle(21);
+            px_hist_daughters_gamma->SetMarkerColor(kOrange-5);
+            px_overlay->Add(px_hist_daughters_gamma);
 
-            THStack *hs4 = new THStack("hs4","Higgs Daughters Momentum (Y-Direction)");
+
+            THStack *py_overlay = new THStack("py overlay","Higgs Daughters Momentum (Y-Direction)");
     
             py_hist_daughters_b->SetFillColor(kRed);
             py_hist_daughters_b->SetMarkerStyle(21);
             py_hist_daughters_b->SetMarkerColor(kRed);
-            hs4->Add(py_hist_daughters_b);
+            py_overlay->Add(py_hist_daughters_b);
     
             py_hist_daughters_antib->SetFillColor(kBlue);
             py_hist_daughters_antib->SetMarkerStyle(21);
             py_hist_daughters_antib->SetMarkerColor(kBlue);
-            hs4->Add(py_hist_daughters_antib);
+            py_overlay->Add(py_hist_daughters_antib);
     
             py_hist_daughters_w->SetFillColor(kGreen);
             py_hist_daughters_w->SetMarkerStyle(21);
             py_hist_daughters_w->SetMarkerColor(kGreen);
-            hs4->Add(py_hist_daughters_w);
+            py_overlay->Add(py_hist_daughters_w);
     
             py_hist_daughters_antiw->SetFillColor(kOrange);
             py_hist_daughters_antiw->SetMarkerStyle(21);
             py_hist_daughters_antiw->SetMarkerColor(kOrange);
-            hs4->Add(py_hist_daughters_antiw);
+            py_overlay->Add(py_hist_daughters_antiw);
     
             py_hist_daughters_z->SetFillColor(kYellow);
             py_hist_daughters_z->SetMarkerStyle(21);
             py_hist_daughters_z->SetMarkerColor(kYellow);
-            hs4->Add(py_hist_daughters_z);
+            py_overlay->Add(py_hist_daughters_z);
+    
+            py_hist_daughters_t->SetFillColor(kCyan);
+            py_hist_daughters_t->SetMarkerStyle(21);
+            py_hist_daughters_t->SetMarkerColor(kCyan);
+            py_overlay->Add(py_hist_daughters_t);
+    
+            py_hist_daughters_antit->SetFillColor(kSpring+10);
+            py_hist_daughters_antit->SetMarkerStyle(21);
+            py_hist_daughters_antit->SetMarkerColor(kSpring+10);
+            py_overlay->Add(py_hist_daughters_antit);
+    
+            py_hist_daughters_c->SetFillColor(kViolet);
+            py_hist_daughters_c->SetMarkerStyle(21);
+            py_hist_daughters_c->SetMarkerColor(kViolet);
+            py_overlay->Add(py_hist_daughters_c);
+    
+            py_hist_daughters_antic->SetFillColor(kAzure-9);
+            py_hist_daughters_antic->SetMarkerStyle(21);
+            py_hist_daughters_antic->SetMarkerColor(kAzure-9);
+            py_overlay->Add(py_hist_daughters_antic);
+    
+            py_hist_daughters_gamma->SetFillColor(kOrange-5);
+            py_hist_daughters_gamma->SetMarkerStyle(21);
+            py_hist_daughters_gamma->SetMarkerColor(kOrange-5);
+            py_overlay->Add(py_hist_daughters_gamma);
 
-            THStack *hs5 = new THStack("hs5","Higgs Daughters Momentum (Z-Direction)");
+
+            THStack *pz_overlay = new THStack("pz overlay","Higgs Daughters Momentum (Z-Direction)");
     
             pz_hist_daughters_b->SetFillColor(kRed);
             pz_hist_daughters_b->SetMarkerStyle(21);
             pz_hist_daughters_b->SetMarkerColor(kRed);
-            hs5->Add(pz_hist_daughters_b);
+            pz_overlay->Add(pz_hist_daughters_b);
     
             pz_hist_daughters_antib->SetFillColor(kBlue);
             pz_hist_daughters_antib->SetMarkerStyle(21);
             pz_hist_daughters_antib->SetMarkerColor(kBlue);
-            hs5->Add(pz_hist_daughters_antib);
+            pz_overlay->Add(pz_hist_daughters_antib);
     
             pz_hist_daughters_w->SetFillColor(kGreen);
             pz_hist_daughters_w->SetMarkerStyle(21);
             pz_hist_daughters_w->SetMarkerColor(kGreen);
-            hs5->Add(pz_hist_daughters_w);
+            pz_overlay->Add(pz_hist_daughters_w);
     
             pz_hist_daughters_antiw->SetFillColor(kOrange);
             pz_hist_daughters_antiw->SetMarkerStyle(21);
             pz_hist_daughters_antiw->SetMarkerColor(kOrange);
-            hs5->Add(pz_hist_daughters_antiw);
+            pz_overlay->Add(pz_hist_daughters_antiw);
     
             pz_hist_daughters_z->SetFillColor(kYellow);
             pz_hist_daughters_z->SetMarkerStyle(21);
             pz_hist_daughters_z->SetMarkerColor(kYellow);
-            hs5->Add(pz_hist_daughters_z);
+            pz_overlay->Add(pz_hist_daughters_z);
+
+            pz_hist_daughters_t->SetFillColor(kCyan);
+            pz_hist_daughters_t->SetMarkerStyle(21);
+            pz_hist_daughters_t->SetMarkerColor(kCyan);
+            pz_overlay->Add(pz_hist_daughters_t);
+    
+            pz_hist_daughters_antit->SetFillColor(kSpring+10);
+            pz_hist_daughters_antit->SetMarkerStyle(21);
+            pz_hist_daughters_antit->SetMarkerColor(kSpring+10);
+            pz_overlay->Add(pz_hist_daughters_antit);
+    
+            pz_hist_daughters_c->SetFillColor(kViolet);
+            pz_hist_daughters_c->SetMarkerStyle(21);
+            pz_hist_daughters_c->SetMarkerColor(kViolet);
+            pz_overlay->Add(pz_hist_daughters_c);
+    
+            pz_hist_daughters_antic->SetFillColor(kAzure-9);
+            pz_hist_daughters_antic->SetMarkerStyle(21);
+            pz_hist_daughters_antic->SetMarkerColor(kAzure-9);
+            pz_overlay->Add(pz_hist_daughters_antic);
+    
+            pz_hist_daughters_gamma->SetFillColor(kOrange-5);
+            pz_hist_daughters_gamma->SetMarkerStyle(21);
+            pz_hist_daughters_gamma->SetMarkerColor(kOrange-5);
+            pz_overlay->Add(pz_hist_daughters_gamma);
 
     
 
@@ -546,33 +803,58 @@ int main(int argc, char* argv[]) {
     ptH_daughters_w->Write();
     ptH_daughters_antiw->Write();
     ptH_daughters_z->Write();
+    ptH_daughters_t->Write();
+    ptH_daughters_antit->Write();
+    ptH_daughters_c->Write();
+    ptH_daughters_antic->Write();
+    ptH_daughters_gamma->Write();
     energy_hist_daughters_b->Write();
     energy_hist_daughters_antib->Write();
     energy_hist_daughters_w->Write();
     energy_hist_daughters_antiw->Write();
     energy_hist_daughters_z->Write();
+    energy_hist_daughters_t->Write();
+    energy_hist_daughters_antit->Write();
+    energy_hist_daughters_c->Write();
+    energy_hist_daughters_antic->Write();
+    energy_hist_daughters_gamma->Write();
     px_hist_daughters_b->Write();
     px_hist_daughters_antib->Write();
     px_hist_daughters_w->Write();
     px_hist_daughters_antiw->Write();
     px_hist_daughters_z->Write();
+    px_hist_daughters_t->Write();
+    px_hist_daughters_antit->Write();
+    px_hist_daughters_c->Write();
+    px_hist_daughters_antic->Write();
+    px_hist_daughters_gamma->Write();
     py_hist_daughters_b->Write();
     py_hist_daughters_antib->Write();
     py_hist_daughters_w->Write();
     py_hist_daughters_antiw->Write();
     py_hist_daughters_z->Write();
+    py_hist_daughters_t->Write();
+    py_hist_daughters_antit->Write();
+    py_hist_daughters_c->Write();
+    py_hist_daughters_antic->Write();
+    py_hist_daughters_gamma->Write();
     pz_hist_daughters_b->Write();
     pz_hist_daughters_antib->Write();
     pz_hist_daughters_w->Write();
     pz_hist_daughters_antiw->Write();
     pz_hist_daughters_z->Write();
+    pz_hist_daughters_t->Write();
+    pz_hist_daughters_antit->Write();
+    pz_hist_daughters_c->Write();
+    pz_hist_daughters_antic->Write();
+    pz_hist_daughters_gamma->Write();
     
-    hs->Write();
-    hs2->Write();
-    hs3->Write();
-    hs4->Write();
-    hs5->Write();
-    Overlay->Write();
+    ptH_overlay->Write();
+    energy_overlay->Write();
+    px_overlay->Write();
+    py_overlay->Write();
+    pz_overlay->Write();
+ //   Overlay->Write();
     
     f.Close();
     

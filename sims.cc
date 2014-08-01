@@ -34,13 +34,26 @@
 using namespace Pythia8;
 
 int main(int argc, char* argv[]) {
-    Int_t nev  = 20000;
+    
+    Int_t cms = 14;
+    if (argc == 2) {
+        cms = atoi (argv[1]);
+    }
+    cout << cms << " " << argc << endl;
+    
+    Int_t nev  = 1000;
     Int_t ndeb = 1;
 
     // Create the ROOT application environment.
     TApplication theApp("pythia8test", &argc, argv);
     
-    TFile f("sims.root", "recreate");
+    char filename[100]; // = "sims_%d.root" + en;
+    sprintf(filename, "sims_%d.root", cms);
+    
+    cout << "filename: "<< filename << endl;
+    
+//    TFile f("sims.root", "recreate");
+    TFile f(filename, "recreate");
     TTree *T = new TTree("T","ev1 Tree");
     // TODO: TTree definition goes here
 
@@ -53,7 +66,11 @@ int main(int argc, char* argv[]) {
     
 // Configure    
 
-    pythia8.readString("Beams:eCM = 14000.");
+//    pythia8.readString("Beams:eCM = 14000.");
+    char cms_str[30];
+    sprintf(cms_str, "Beams:eCM = %d000.", cms);
+
+    pythia8.readString(cms_str);
     pythia8.readString("HiggsSM:gg2H = on");
     
     // TODO: Event *event goes here, instead of pythia. use puthia8.
@@ -65,7 +82,7 @@ int main(int argc, char* argv[]) {
     
 //    pythia8->Initialize(2212 /* p */, 2212 /* p */, 14000. /* TeV */);
 //    pythia8.initialize(2212 /* p */, 2212 /* p */, 14000. /* TeV */);
-    pythia8.init(2212 /* p */, 2212 /* p */, 14000. /* TeV */);
+    pythia8.init(2212 /* p */, 2212 /* p */, cms*1000. /* TeV */);
     
 // Event loop
 
