@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
     }
     cout << cms << " " << argc << endl;
     
-    Int_t nev  = 1000;
+    Int_t nev  = 20000;
     Int_t ndeb = 1;
 
     // Create the ROOT application environment.
