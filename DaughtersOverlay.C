@@ -141,6 +141,21 @@ int DaughtersOverlay(int cms=6)
     ////    TH1I * hs = (TH1I*)f.Get("daughters");
     ////    c1->cd();
     //    //create/fill draw h1
+
+ 
+    TPad *pad1 = new TPad("pad1", "",0,0,1,1);
+    TPad *pad2 = new TPad("pad2", "",0,0,1,1);
+    Double_t ymin = 0;
+    Double_t ymax = 2600;
+    Double_t dy = (ymax-ymin)/0.8; //10 per cent margins top and bottom
+    Double_t xmin = -300;
+    Double_t xmax = 300;
+    Double_t dx = (xmax-xmin)/0.8;
+    pad1->Range(xmin-0.1*dx,ymin-0.1*dy,xmax+0.1*dx,ymax+0.1*dy);
+    pad1->SetFillStyle(4000); //will be transparent
+    pad1->Draw();
+    pad1->cd();
+    
     gStyle->SetOptStat(kFALSE);
     px_hist_daughters->SetLineColor(kPink+7);
     px_hist_daughters->SetLineWidth(5);
@@ -148,9 +163,8 @@ int DaughtersOverlay(int cms=6)
     //    ptH_daughters->Draw();
     ////    c1->Update();
     
-    px_hist_daughters->Draw();
-    c2->Update();
-    
+//    px_hist_daughters->Draw();
+//    c2->Update();
     Double_t fitf(Double_t *v, Double_t *par)
     {
         Double_t arg = 0;
@@ -165,6 +179,7 @@ int DaughtersOverlay(int cms=6)
     func->SetParNames("Constant","Mean_value","Sigma");
     func->SetLineColor(kBlack);
     func->SetLineWidth(5);
+    cout << "### px daughters with energy " << cms << " TeV " << endl;
     px_hist_daughters->Fit("fit");
     
     
@@ -192,9 +207,20 @@ int DaughtersOverlay(int cms=6)
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
-    px_overlay->Draw("same");
+ //   px_overlay->Scale(scale1);
+    cout << "scale= " << scale1 << "rightmax1= " << rightmax1 << "gpad= " << gPad->GetUymax() << endl;
+    px_overlay->Draw();
     c2->Update();
     //    c2->Update();
+    ymax=2*ymax;
+    pad2->Range(xmin-0.1*dx,ymin-0.1*dy,xmax+0.1*dx,ymax+0.1*dy);
+    pad2->SetFillStyle(4000); //will be transparent
+    pad2->Draw();
+    pad2->cd();
+    px_hist_daughters->Draw("same");
+    pad2->Update();
+    c2->Update();
+
     
     
     TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
@@ -259,8 +285,8 @@ int DaughtersOverlay(int cms=6)
     //    ptH_daughters->Draw();
     ////    c1->Update();
     
-    py_hist_daughters->Draw();
-    c3->Update();
+//    py_hist_daughters->Draw();
+//    c3->Update();
     
     Double_t fitf(Double_t *v, Double_t *par)
     {
@@ -276,6 +302,8 @@ int DaughtersOverlay(int cms=6)
     func->SetParNames("Constant","Mean_value","Sigma");
     func->SetLineColor(kBlack);
     func->SetLineWidth(5);
+    cout << "### py daughters with energy " << cms << " TeV " << endl;
+
     py_hist_daughters->Fit("fit");
     
     //    TCanvas *c2 = new TCanvas("c2","Daughter Overlay ptH 2",600,400);
@@ -291,9 +319,11 @@ int DaughtersOverlay(int cms=6)
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
-    py_overlay->Draw("same");
+    py_overlay->Draw();
     c3->Update();
     //    c2->Update();
+    py_hist_daughters->Draw("same");
+    c3->Update();
     
     
     TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
@@ -359,8 +389,8 @@ int DaughtersOverlay(int cms=6)
     //    ptH_daughters->Draw();
     ////    c1->Update();
     
-    pz_hist_daughters->Draw();
-    c4->Update();
+//    pz_hist_daughters->Draw();
+//    c4->Update();
     
     Double_t fitf(Double_t *v, Double_t *par)
     {
@@ -377,6 +407,8 @@ int DaughtersOverlay(int cms=6)
     func->SetParNames("Constant","Mean_value","Sigma");
     func->SetLineColor(kBlack);
     func->SetLineWidth(5);
+    cout << "### pz daughters with energy " << cms << " TeV " << endl;
+
     pz_hist_daughters->Fit("fit");
     
     
@@ -393,10 +425,12 @@ int DaughtersOverlay(int cms=6)
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
-    pz_overlay->Draw("same");
+    pz_overlay->Draw();
     c4->Update();
     //    c2->Update();
-    
+    pz_hist_daughters->Draw("same");
+    c4->Update();
+
     
     TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
     leg->SetHeader("Legend");
