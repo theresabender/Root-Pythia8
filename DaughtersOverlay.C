@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+//#include <algorithm>
 #include "TCanvas.h"
 #include "TStyle.h"
 #include "TH1.h"
@@ -24,6 +25,9 @@
 
 #include "TGaxis.h"
 
+Double_t max(Double_t a, Double_t b){
+    return (a<b) ? b : a;
+}
 
 //void DaughtersOverlay(int argc, char* argv[])
 //Int_t plotter(Int_t cms)
@@ -69,8 +73,8 @@ int DaughtersOverlay(int cms=6)
 //    // instead of hint1 use finaldaughters
 //    
 //    //scale hint1 to the pad coordinates
-    Float_t rightmax1 = 1.1*ptH_daughters->GetMaximum();
-    Float_t scale1 = gPad->GetUymax()/rightmax1;
+//    Float_t rightmax1 = 1.1*ptH_daughters->GetMaximum();
+//    Float_t scale1 = gPad->GetUymax()/rightmax1;
 ////    hs->SetLineColor(kRed);
 // //   hs->SetLineWidth(1);
 ////    hs->Scale(scale1);
@@ -143,18 +147,18 @@ int DaughtersOverlay(int cms=6)
     //    //create/fill draw h1
 
  
-    TPad *pad1 = new TPad("pad1", "",0,0,1,1);
-    TPad *pad2 = new TPad("pad2", "",0,0,1,1);
-    Double_t ymin = 0;
-    Double_t ymax = 2600;
-    Double_t dy = (ymax-ymin)/0.8; //10 per cent margins top and bottom
-    Double_t xmin = -300;
-    Double_t xmax = 300;
-    Double_t dx = (xmax-xmin)/0.8;
-    pad1->Range(xmin-0.1*dx,ymin-0.1*dy,xmax+0.1*dx,ymax+0.1*dy);
-    pad1->SetFillStyle(4000); //will be transparent
-    pad1->Draw();
-    pad1->cd();
+//    TPad *pad1 = new TPad("pad1", "",0,0,1,1);
+//    TPad *pad2 = new TPad("pad2", "",0,0,1,1);
+//    Double_t ymin = 0;
+//    Double_t ymax = 2600;
+//    Double_t dy = (ymax-ymin)/0.8; //10 per cent margins top and bottom
+//    Double_t xmin = -300;
+//    Double_t xmax = 300;
+//    Double_t dx = (xmax-xmin)/0.8;
+//    pad1->Range(xmin-0.1*dx,ymin-0.1*dy,xmax+0.1*dx,ymax+0.1*dy);
+//    pad1->SetFillStyle(4000); //will be transparent
+//    pad1->Draw();
+//    pad1->cd();
     
     gStyle->SetOptStat(kFALSE);
     px_hist_daughters->SetLineColor(kPink+7);
@@ -178,7 +182,7 @@ int DaughtersOverlay(int cms=6)
     func->SetParameters(500,px_hist_daughters->GetMean(),px_hist_daughters->GetRMS());
     func->SetParNames("Constant","Mean_value","Sigma");
     func->SetLineColor(kBlack);
-    func->SetLineWidth(5);
+    func->SetLineWidth(2);
     cout << "### px daughters with energy " << cms << " TeV " << endl;
     px_hist_daughters->Fit("fit");
     
@@ -201,24 +205,50 @@ int DaughtersOverlay(int cms=6)
     //    // instead of hint1 use finaldaughters
     //
     //    //scale hint1 to the pad coordinates
-    Float_t rightmax1 = 1.1*px_hist_daughters->GetMaximum();
-    Float_t scale1 = gPad->GetUymax()/rightmax1;
+//    Float_t rightmax1 = 1.1*px_hist_daughters->GetMaximum();
+//    Double_t scale1 = gPad->GetUymax()/rightmax1;
+    cout << "max"<< max(1,2) << endl;
+    
+    Double_t max_px_hist_daughters = px_hist_daughters->GetMaximum();
+    Double_t max_px_overlay = px_overlay->GetMaximum();
+    Double_t M = 1.1*max(max_px_hist_daughters,max_px_overlay);
+    Double_t scale1=1.0;
+    Double_t scale2 = 1.0;
+    
+    if (fabs(max_px_hist_daughters)>1.0e-15){
+        scale1 = M/max_px_hist_daughters;
+    }
+    px_hist_daughters->Scale(scale1);
+    
+    
+//    if (fabs(max_px_overlay)>1.0e-15){
+//        scale2 = M/max_px_overlay;
+//    }
+//    
+//    px_overlay->Scale(scale2);
+    px_overlay->SetMaximum(M);
+    
+    
+//    Float_t h1 = px_hist_daughters->GetMaximum();
+//    Float_t
+//    scale1 = 1.1*M/h1;
     ////    hs->SetLineColor(kRed);
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
  //   px_overlay->Scale(scale1);
-    cout << "scale= " << scale1 << "rightmax1= " << rightmax1 << "gpad= " << gPad->GetUymax() << endl;
+//    cout << "scale= " << scale1 << "rightmax1= " << rightmax1 << "gpad= " << gPad->GetUymax() << endl;
+    cout << "scale= " << scale1 << endl;
     px_overlay->Draw();
     c2->Update();
     //    c2->Update();
-    ymax=2*ymax;
-    pad2->Range(xmin-0.1*dx,ymin-0.1*dy,xmax+0.1*dx,ymax+0.1*dy);
-    pad2->SetFillStyle(4000); //will be transparent
-    pad2->Draw();
-    pad2->cd();
+//    ymax=2*ymax;
+//    pad2->Range(xmin-0.1*dx,ymin-0.1*dy,xmax+0.1*dx,ymax+0.1*dy);
+//    pad2->SetFillStyle(4000); //will be transparent
+//    pad2->Draw();
+//    pad2->cd();
     px_hist_daughters->Draw("same");
-    pad2->Update();
+//    pad2->Update();
     c2->Update();
 
     
@@ -313,8 +343,8 @@ int DaughtersOverlay(int cms=6)
     //    // instead of hint1 use finaldaughters
     //
     //    //scale hint1 to the pad coordinates
-    Float_t rightmax1 = 1.1*py_hist_daughters->GetMaximum();
-    Float_t scale1 = gPad->GetUymax()/rightmax1;
+//    Float_t rightmax1 = 1.1*py_hist_daughters->GetMaximum();
+//    Float_t scale1 = gPad->GetUymax()/rightmax1;
     ////    hs->SetLineColor(kRed);
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
@@ -419,8 +449,8 @@ int DaughtersOverlay(int cms=6)
     //    // instead of hint1 use finaldaughters
     //
     //    //scale hint1 to the pad coordinates
-    Float_t rightmax1 = 1.1*pz_hist_daughters->GetMaximum();
-    Float_t scale1 = gPad->GetUymax()/rightmax1;
+//    Float_t rightmax1 = 1.1*pz_hist_daughters->GetMaximum();
+//    Float_t scale1 = gPad->GetUymax()/rightmax1;
     ////    hs->SetLineColor(kRed);
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
@@ -506,8 +536,8 @@ int DaughtersOverlay(int cms=6)
     //    // instead of hint1 use finaldaughters
     //
     //    //scale hint1 to the pad coordinates
-    Float_t rightmax1 = 1.1*energy_hist_daughters->GetMaximum();
-    Float_t scale1 = gPad->GetUymax()/rightmax1;
+//    Float_t rightmax1 = 1.1*energy_hist_daughters->GetMaximum();
+//    Float_t scale1 = gPad->GetUymax()/rightmax1;
     ////    hs->SetLineColor(kRed);
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
