@@ -458,58 +458,67 @@ int main(int argc, char* argv[]) {
     
     f.cd();
 
-
+    Int_t color_b = kRed;
+    Int_t color_antib = kBlue;
+    Int_t color_w = kGreen;
+    Int_t color_antiw = kOrange;
+    Int_t color_z = kYellow;
+    Int_t color_t = kCyan;
+    Int_t color_antit = kSpring+10;
+    Int_t color_c = kViolet;
+    Int_t color_antic = kAzure-9;
+    Int_t color_p = kOrange-5;
     
             THStack *ptH_overlay = new THStack("ptH overlay","ptH of Higgs Daughters");
 
-            ptH_daughters_b->SetFillColor(kRed);
+            ptH_daughters_b->SetFillColor(color_b);
             ptH_daughters_b->SetMarkerStyle(21);
-            ptH_daughters_b->SetMarkerColor(kRed);
+            ptH_daughters_b->SetMarkerColor(color_b);
             ptH_overlay->Add(ptH_daughters_b);
 
-            ptH_daughters_antib->SetFillColor(kBlue);
+            ptH_daughters_antib->SetFillColor(color_antib);
             ptH_daughters_antib->SetMarkerStyle(21);
-            ptH_daughters_antib->SetMarkerColor(kBlue);
+            ptH_daughters_antib->SetMarkerColor(color_antib);
             ptH_overlay->Add(ptH_daughters_antib);
 
-            ptH_daughters_w->SetFillColor(kGreen);
+            ptH_daughters_w->SetFillColor(color_w);
             ptH_daughters_w->SetMarkerStyle(21);
-            ptH_daughters_w->SetMarkerColor(kGreen);
+            ptH_daughters_w->SetMarkerColor(color_w);
             ptH_overlay->Add(ptH_daughters_w);
 
-            ptH_daughters_antiw->SetFillColor(kOrange);
+            ptH_daughters_antiw->SetFillColor(color_antiw);
             ptH_daughters_antiw->SetMarkerStyle(21);
-            ptH_daughters_antiw->SetMarkerColor(kOrange);
+            ptH_daughters_antiw->SetMarkerColor(color_antiw);
             ptH_overlay->Add(ptH_daughters_antiw);
 
-            ptH_daughters_z->SetFillColor(kYellow);
+            ptH_daughters_z->SetFillColor(color_z);
             ptH_daughters_z->SetMarkerStyle(21);
-            ptH_daughters_z->SetMarkerColor(kYellow);
+            ptH_daughters_z->SetMarkerColor(color_z);
             ptH_overlay->Add(ptH_daughters_z);
     
-            ptH_daughters_t->SetFillColor(kCyan);
+            ptH_daughters_t->SetFillColor(color_t);
             ptH_daughters_t->SetMarkerStyle(21);
-            ptH_daughters_t->SetMarkerColor(kCyan);
+            ptH_daughters_t->SetMarkerColor(color_t);
             ptH_overlay->Add(ptH_daughters_t);
     
-            ptH_daughters_antit->SetFillColor(kSpring+10);
+            ptH_daughters_antit->SetFillColor(color_antit);
             ptH_daughters_antit->SetMarkerStyle(21);
-            ptH_daughters_antit->SetMarkerColor(kSpring+10);
+            ptH_daughters_antit->SetMarkerColor(color_antit);
             ptH_overlay->Add(ptH_daughters_antit);
     
-            ptH_daughters_c->SetFillColor(kViolet-3);
+            ptH_daughters_c->SetFillColor(color_c);
             ptH_daughters_c->SetMarkerStyle(21);
-            ptH_daughters_c->SetMarkerColor(kViolet-3);
+            ptH_daughters_c->SetMarkerColor(color_c);
             ptH_overlay->Add(ptH_daughters_c);
     
-            ptH_daughters_antic->SetFillColor(kAzure-9);
+            ptH_daughters_antic->SetFillColor(color_antic);
             ptH_daughters_antic->SetMarkerStyle(21);
-            ptH_daughters_antic->SetMarkerColor(kAzure-9);
+            ptH_daughters_antic->SetMarkerColor(color_antic);
             ptH_overlay->Add(ptH_daughters_antic);
     
-            ptH_daughters_gamma->SetFillColor(kOrange-5);
+            ptH_daughters_gamma->SetFillColor(color_p);
             ptH_daughters_gamma->SetMarkerStyle(21);
-            ptH_daughters_gamma->SetMarkerColor(kOrange-5);
+            ptH_daughters_gamma->SetMarkerColor(color_p);
             ptH_overlay->Add(ptH_daughters_gamma);
 
     
@@ -538,214 +547,212 @@ int main(int argc, char* argv[]) {
     
             THStack *energy_overlay = new THStack("energy overlay","Energy of Higgs Daughters");
     
-            energy_hist_daughters_b->SetFillColor(kRed);
-            energy_hist_daughters_b->SetMarkerStyle(21);
-            energy_hist_daughters_b->SetMarkerColor(kRed);
-            energy_overlay->Add(energy_hist_daughters_b);
+    energy_hist_daughters_b->SetFillColor(color_b);
+    energy_hist_daughters_b->SetMarkerStyle(21);
+    energy_hist_daughters_b->SetMarkerColor(color_b);
+    energy_overlay->Add(energy_hist_daughters_b);
     
-            energy_hist_daughters_antib->SetFillColor(kBlue);
-            energy_hist_daughters_antib->SetMarkerStyle(21);
-            energy_hist_daughters_antib->SetMarkerColor(kBlue);
-            energy_overlay->Add(energy_hist_daughters_antib);
+    energy_hist_daughters_antib->SetFillColor(color_antib);
+    energy_hist_daughters_antib->SetMarkerStyle(21);
+    energy_hist_daughters_antib->SetMarkerColor(color_antib);
+    energy_overlay->Add(energy_hist_daughters_antib);
     
-            energy_hist_daughters_w->SetFillColor(kGreen);
-            energy_hist_daughters_w->SetMarkerStyle(21);
-            energy_hist_daughters_w->SetMarkerColor(kGreen);
-            energy_overlay->Add(energy_hist_daughters_w);
+    energy_hist_daughters_w->SetFillColor(color_w);
+    energy_hist_daughters_w->SetMarkerStyle(21);
+    energy_hist_daughters_w->SetMarkerColor(color_w);
+    energy_overlay->Add(energy_hist_daughters_w);
     
-            energy_hist_daughters_antiw->SetFillColor(kOrange);
-            energy_hist_daughters_antiw->SetMarkerStyle(21);
-            energy_hist_daughters_antiw->SetMarkerColor(kOrange);
-            energy_overlay->Add(energy_hist_daughters_antiw);
+    energy_hist_daughters_antiw->SetFillColor(color_antiw);
+    energy_hist_daughters_antiw->SetMarkerStyle(21);
+    energy_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    energy_overlay->Add(energy_hist_daughters_antiw);
     
-            energy_hist_daughters_z->SetFillColor(kYellow);
-            energy_hist_daughters_z->SetMarkerStyle(21);
-            energy_hist_daughters_z->SetMarkerColor(kYellow);
-            energy_overlay->Add(energy_hist_daughters_z);
+    energy_hist_daughters_z->SetFillColor(color_z);
+    energy_hist_daughters_z->SetMarkerStyle(21);
+    energy_hist_daughters_z->SetMarkerColor(color_z);
+    energy_overlay->Add(energy_hist_daughters_z);
     
-            energy_hist_daughters_t->SetFillColor(kCyan);
-            energy_hist_daughters_t->SetMarkerStyle(21);
-            energy_hist_daughters_t->SetMarkerColor(kCyan);
-            energy_overlay->Add(energy_hist_daughters_t);
+    energy_hist_daughters_t->SetFillColor(color_t);
+    energy_hist_daughters_t->SetMarkerStyle(21);
+    energy_hist_daughters_t->SetMarkerColor(color_t);
+    energy_overlay->Add(energy_hist_daughters_t);
     
-            energy_hist_daughters_antit->SetFillColor(kSpring+10);
-            energy_hist_daughters_antit->SetMarkerStyle(21);
-            energy_hist_daughters_antit->SetMarkerColor(kSpring+10);
-            energy_overlay->Add(energy_hist_daughters_antit);
+    energy_hist_daughters_antit->SetFillColor(color_antit);
+    energy_hist_daughters_antit->SetMarkerStyle(21);
+    energy_hist_daughters_antit->SetMarkerColor(color_antit);
+    energy_overlay->Add(energy_hist_daughters_antit);
     
-            energy_hist_daughters_c->SetFillColor(kViolet-3);
-            energy_hist_daughters_c->SetMarkerStyle(21);
-            energy_hist_daughters_c->SetMarkerColor(kViolet-3);
-            energy_overlay->Add(energy_hist_daughters_c);
+    energy_hist_daughters_c->SetFillColor(color_c);
+    energy_hist_daughters_c->SetMarkerStyle(21);
+    energy_hist_daughters_c->SetMarkerColor(color_c);
+    energy_overlay->Add(energy_hist_daughters_c);
     
-            energy_hist_daughters_antic->SetFillColor(kAzure-9);
-            energy_hist_daughters_antic->SetMarkerStyle(21);
-            energy_hist_daughters_antic->SetMarkerColor(kAzure-9);
-            energy_overlay->Add(energy_hist_daughters_antic);
+    energy_hist_daughters_antic->SetFillColor(color_antic);
+    energy_hist_daughters_antic->SetMarkerStyle(21);
+    energy_hist_daughters_antic->SetMarkerColor(color_antic);
+    energy_overlay->Add(energy_hist_daughters_antic);
     
-            energy_hist_daughters_gamma->SetFillColor(kOrange-5);
-            energy_hist_daughters_gamma->SetMarkerStyle(21);
-            energy_hist_daughters_gamma->SetMarkerColor(kOrange-5);
-            energy_overlay->Add(energy_hist_daughters_gamma);
-    
+    energy_hist_daughters_gamma->SetFillColor(color_p);
+    energy_hist_daughters_gamma->SetMarkerStyle(21);
+    energy_hist_daughters_gamma->SetMarkerColor(color_p);
+    energy_overlay->Add(energy_hist_daughters_gamma);
     
             THStack *px_overlay = new THStack("px overlay","Higgs Daughters Momentum (X-Direction)");
     
-            px_hist_daughters_b->SetFillColor(kRed);
-            px_hist_daughters_b->SetMarkerStyle(21);
-            px_hist_daughters_b->SetMarkerColor(kRed);
-            px_overlay->Add(px_hist_daughters_b);
+    px_hist_daughters_b->SetFillColor(color_b);
+    px_hist_daughters_b->SetMarkerStyle(21);
+    px_hist_daughters_b->SetMarkerColor(color_b);
+    px_overlay->Add(px_hist_daughters_b);
     
-            px_hist_daughters_antib->SetFillColor(kBlue);
-            px_hist_daughters_antib->SetMarkerStyle(21);
-            px_hist_daughters_antib->SetMarkerColor(kBlue);
-            px_overlay->Add(px_hist_daughters_antib);
+    px_hist_daughters_antib->SetFillColor(color_antib);
+    px_hist_daughters_antib->SetMarkerStyle(21);
+    px_hist_daughters_antib->SetMarkerColor(color_antib);
+    px_overlay->Add(px_hist_daughters_antib);
     
-            px_hist_daughters_w->SetFillColor(kGreen);
-            px_hist_daughters_w->SetMarkerStyle(21);
-            px_hist_daughters_w->SetMarkerColor(kGreen);
-            px_overlay->Add(px_hist_daughters_w);
+    px_hist_daughters_w->SetFillColor(color_w);
+    px_hist_daughters_w->SetMarkerStyle(21);
+    px_hist_daughters_w->SetMarkerColor(color_w);
+    px_overlay->Add(px_hist_daughters_w);
     
-            px_hist_daughters_antiw->SetFillColor(kOrange);
-            px_hist_daughters_antiw->SetMarkerStyle(21);
-            px_hist_daughters_antiw->SetMarkerColor(kOrange);
-            px_overlay->Add(px_hist_daughters_antiw);
+    px_hist_daughters_antiw->SetFillColor(color_antiw);
+    px_hist_daughters_antiw->SetMarkerStyle(21);
+    px_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    px_overlay->Add(px_hist_daughters_antiw);
     
-            px_hist_daughters_z->SetFillColor(kYellow);
-            px_hist_daughters_z->SetMarkerStyle(21);
-            px_hist_daughters_z->SetMarkerColor(kYellow);
-            px_overlay->Add(px_hist_daughters_z);
+    px_hist_daughters_z->SetFillColor(color_z);
+    px_hist_daughters_z->SetMarkerStyle(21);
+    px_hist_daughters_z->SetMarkerColor(color_z);
+    px_overlay->Add(px_hist_daughters_z);
     
-            px_hist_daughters_t->SetFillColor(kCyan);
-            px_hist_daughters_t->SetMarkerStyle(21);
-            px_hist_daughters_t->SetMarkerColor(kCyan);
-            px_overlay->Add(px_hist_daughters_t);
+    px_hist_daughters_t->SetFillColor(color_t);
+    px_hist_daughters_t->SetMarkerStyle(21);
+    px_hist_daughters_t->SetMarkerColor(color_t);
+    px_overlay->Add(px_hist_daughters_t);
     
-            px_hist_daughters_antit->SetFillColor(kSpring+10);
-            px_hist_daughters_antit->SetMarkerStyle(21);
-            px_hist_daughters_antit->SetMarkerColor(kSpring+10);
-            px_overlay->Add(px_hist_daughters_antit);
+    px_hist_daughters_antit->SetFillColor(color_antit);
+    px_hist_daughters_antit->SetMarkerStyle(21);
+    px_hist_daughters_antit->SetMarkerColor(color_antit);
+    px_overlay->Add(px_hist_daughters_antit);
     
-            px_hist_daughters_c->SetFillColor(kViolet);
-            px_hist_daughters_c->SetMarkerStyle(21);
-            px_hist_daughters_c->SetMarkerColor(kViolet);
-            px_overlay->Add(px_hist_daughters_c);
+    px_hist_daughters_c->SetFillColor(color_c);
+    px_hist_daughters_c->SetMarkerStyle(21);
+    px_hist_daughters_c->SetMarkerColor(color_c);
+    px_overlay->Add(px_hist_daughters_c);
     
-            px_hist_daughters_antic->SetFillColor(kAzure-9);
-            px_hist_daughters_antic->SetMarkerStyle(21);
-            px_hist_daughters_antic->SetMarkerColor(kAzure-9);
-            px_overlay->Add(px_hist_daughters_antic);
+    px_hist_daughters_antic->SetFillColor(color_antic);
+    px_hist_daughters_antic->SetMarkerStyle(21);
+    px_hist_daughters_antic->SetMarkerColor(color_antic);
+    px_overlay->Add(px_hist_daughters_antic);
     
-            px_hist_daughters_gamma->SetFillColor(kOrange-5);
-            px_hist_daughters_gamma->SetMarkerStyle(21);
-            px_hist_daughters_gamma->SetMarkerColor(kOrange-5);
-            px_overlay->Add(px_hist_daughters_gamma);
+    px_hist_daughters_gamma->SetFillColor(color_p);
+    px_hist_daughters_gamma->SetMarkerStyle(21);
+    px_hist_daughters_gamma->SetMarkerColor(color_p);
+    px_overlay->Add(px_hist_daughters_gamma);
 
 
             THStack *py_overlay = new THStack("py overlay","Higgs Daughters Momentum (Y-Direction)");
     
-            py_hist_daughters_b->SetFillColor(kRed);
-            py_hist_daughters_b->SetMarkerStyle(21);
-            py_hist_daughters_b->SetMarkerColor(kRed);
-            py_overlay->Add(py_hist_daughters_b);
+    py_hist_daughters_b->SetFillColor(color_b);
+    py_hist_daughters_b->SetMarkerStyle(21);
+    py_hist_daughters_b->SetMarkerColor(color_b);
+    py_overlay->Add(py_hist_daughters_b);
     
-            py_hist_daughters_antib->SetFillColor(kBlue);
-            py_hist_daughters_antib->SetMarkerStyle(21);
-            py_hist_daughters_antib->SetMarkerColor(kBlue);
-            py_overlay->Add(py_hist_daughters_antib);
+    py_hist_daughters_antib->SetFillColor(color_antib);
+    py_hist_daughters_antib->SetMarkerStyle(21);
+    py_hist_daughters_antib->SetMarkerColor(color_antib);
+    py_overlay->Add(py_hist_daughters_antib);
     
-            py_hist_daughters_w->SetFillColor(kGreen);
-            py_hist_daughters_w->SetMarkerStyle(21);
-            py_hist_daughters_w->SetMarkerColor(kGreen);
-            py_overlay->Add(py_hist_daughters_w);
+    py_hist_daughters_w->SetFillColor(color_w);
+    py_hist_daughters_w->SetMarkerStyle(21);
+    py_hist_daughters_w->SetMarkerColor(color_w);
+    py_overlay->Add(py_hist_daughters_w);
     
-            py_hist_daughters_antiw->SetFillColor(kOrange);
-            py_hist_daughters_antiw->SetMarkerStyle(21);
-            py_hist_daughters_antiw->SetMarkerColor(kOrange);
-            py_overlay->Add(py_hist_daughters_antiw);
+    py_hist_daughters_antiw->SetFillColor(color_antiw);
+    py_hist_daughters_antiw->SetMarkerStyle(21);
+    py_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    py_overlay->Add(py_hist_daughters_antiw);
     
-            py_hist_daughters_z->SetFillColor(kYellow);
-            py_hist_daughters_z->SetMarkerStyle(21);
-            py_hist_daughters_z->SetMarkerColor(kYellow);
-            py_overlay->Add(py_hist_daughters_z);
+    py_hist_daughters_z->SetFillColor(color_z);
+    py_hist_daughters_z->SetMarkerStyle(21);
+    py_hist_daughters_z->SetMarkerColor(color_z);
+    py_overlay->Add(py_hist_daughters_z);
     
-            py_hist_daughters_t->SetFillColor(kCyan);
-            py_hist_daughters_t->SetMarkerStyle(21);
-            py_hist_daughters_t->SetMarkerColor(kCyan);
-            py_overlay->Add(py_hist_daughters_t);
+    py_hist_daughters_t->SetFillColor(color_t);
+    py_hist_daughters_t->SetMarkerStyle(21);
+    py_hist_daughters_t->SetMarkerColor(color_t);
+    py_overlay->Add(py_hist_daughters_t);
     
-            py_hist_daughters_antit->SetFillColor(kSpring+10);
-            py_hist_daughters_antit->SetMarkerStyle(21);
-            py_hist_daughters_antit->SetMarkerColor(kSpring+10);
-            py_overlay->Add(py_hist_daughters_antit);
+    py_hist_daughters_antit->SetFillColor(color_antit);
+    py_hist_daughters_antit->SetMarkerStyle(21);
+    py_hist_daughters_antit->SetMarkerColor(color_antit);
+    py_overlay->Add(py_hist_daughters_antit);
     
-            py_hist_daughters_c->SetFillColor(kViolet);
-            py_hist_daughters_c->SetMarkerStyle(21);
-            py_hist_daughters_c->SetMarkerColor(kViolet);
-            py_overlay->Add(py_hist_daughters_c);
+    py_hist_daughters_c->SetFillColor(color_c);
+    py_hist_daughters_c->SetMarkerStyle(21);
+    py_hist_daughters_c->SetMarkerColor(color_c);
+    py_overlay->Add(py_hist_daughters_c);
     
-            py_hist_daughters_antic->SetFillColor(kAzure-9);
-            py_hist_daughters_antic->SetMarkerStyle(21);
-            py_hist_daughters_antic->SetMarkerColor(kAzure-9);
-            py_overlay->Add(py_hist_daughters_antic);
+    py_hist_daughters_antic->SetFillColor(color_antic);
+    py_hist_daughters_antic->SetMarkerStyle(21);
+    py_hist_daughters_antic->SetMarkerColor(color_antic);
+    py_overlay->Add(py_hist_daughters_antic);
     
-            py_hist_daughters_gamma->SetFillColor(kOrange-5);
-            py_hist_daughters_gamma->SetMarkerStyle(21);
-            py_hist_daughters_gamma->SetMarkerColor(kOrange-5);
-            py_overlay->Add(py_hist_daughters_gamma);
-
+    py_hist_daughters_gamma->SetFillColor(color_p);
+    py_hist_daughters_gamma->SetMarkerStyle(21);
+    py_hist_daughters_gamma->SetMarkerColor(color_p);
+    py_overlay->Add(py_hist_daughters_gamma);
 
             THStack *pz_overlay = new THStack("pz overlay","Higgs Daughters Momentum (Z-Direction)");
     
-            pz_hist_daughters_b->SetFillColor(kRed);
-            pz_hist_daughters_b->SetMarkerStyle(21);
-            pz_hist_daughters_b->SetMarkerColor(kRed);
-            pz_overlay->Add(pz_hist_daughters_b);
+    pz_hist_daughters_b->SetFillColor(color_b);
+    pz_hist_daughters_b->SetMarkerStyle(21);
+    pz_hist_daughters_b->SetMarkerColor(color_b);
+    pz_overlay->Add(pz_hist_daughters_b);
     
-            pz_hist_daughters_antib->SetFillColor(kBlue);
-            pz_hist_daughters_antib->SetMarkerStyle(21);
-            pz_hist_daughters_antib->SetMarkerColor(kBlue);
-            pz_overlay->Add(pz_hist_daughters_antib);
+    pz_hist_daughters_antib->SetFillColor(color_antib);
+    pz_hist_daughters_antib->SetMarkerStyle(21);
+    pz_hist_daughters_antib->SetMarkerColor(color_antib);
+    pz_overlay->Add(pz_hist_daughters_antib);
     
-            pz_hist_daughters_w->SetFillColor(kGreen);
-            pz_hist_daughters_w->SetMarkerStyle(21);
-            pz_hist_daughters_w->SetMarkerColor(kGreen);
-            pz_overlay->Add(pz_hist_daughters_w);
+    pz_hist_daughters_w->SetFillColor(color_w);
+    pz_hist_daughters_w->SetMarkerStyle(21);
+    pz_hist_daughters_w->SetMarkerColor(color_w);
+    pz_overlay->Add(pz_hist_daughters_w);
     
-            pz_hist_daughters_antiw->SetFillColor(kOrange);
-            pz_hist_daughters_antiw->SetMarkerStyle(21);
-            pz_hist_daughters_antiw->SetMarkerColor(kOrange);
-            pz_overlay->Add(pz_hist_daughters_antiw);
+    pz_hist_daughters_antiw->SetFillColor(color_antiw);
+    pz_hist_daughters_antiw->SetMarkerStyle(21);
+    pz_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    pz_overlay->Add(pz_hist_daughters_antiw);
     
-            pz_hist_daughters_z->SetFillColor(kYellow);
-            pz_hist_daughters_z->SetMarkerStyle(21);
-            pz_hist_daughters_z->SetMarkerColor(kYellow);
-            pz_overlay->Add(pz_hist_daughters_z);
-
-            pz_hist_daughters_t->SetFillColor(kCyan);
-            pz_hist_daughters_t->SetMarkerStyle(21);
-            pz_hist_daughters_t->SetMarkerColor(kCyan);
-            pz_overlay->Add(pz_hist_daughters_t);
+    pz_hist_daughters_z->SetFillColor(color_z);
+    pz_hist_daughters_z->SetMarkerStyle(21);
+    pz_hist_daughters_z->SetMarkerColor(color_z);
+    pz_overlay->Add(pz_hist_daughters_z);
     
-            pz_hist_daughters_antit->SetFillColor(kSpring+10);
-            pz_hist_daughters_antit->SetMarkerStyle(21);
-            pz_hist_daughters_antit->SetMarkerColor(kSpring+10);
-            pz_overlay->Add(pz_hist_daughters_antit);
+    pz_hist_daughters_t->SetFillColor(color_t);
+    pz_hist_daughters_t->SetMarkerStyle(21);
+    pz_hist_daughters_t->SetMarkerColor(color_t);
+    pz_overlay->Add(pz_hist_daughters_t);
     
-            pz_hist_daughters_c->SetFillColor(kViolet);
-            pz_hist_daughters_c->SetMarkerStyle(21);
-            pz_hist_daughters_c->SetMarkerColor(kViolet);
-            pz_overlay->Add(pz_hist_daughters_c);
+    pz_hist_daughters_antit->SetFillColor(color_antit);
+    pz_hist_daughters_antit->SetMarkerStyle(21);
+    pz_hist_daughters_antit->SetMarkerColor(color_antit);
+    pz_overlay->Add(pz_hist_daughters_antit);
     
-            pz_hist_daughters_antic->SetFillColor(kAzure-9);
-            pz_hist_daughters_antic->SetMarkerStyle(21);
-            pz_hist_daughters_antic->SetMarkerColor(kAzure-9);
-            pz_overlay->Add(pz_hist_daughters_antic);
+    pz_hist_daughters_c->SetFillColor(color_c);
+    pz_hist_daughters_c->SetMarkerStyle(21);
+    pz_hist_daughters_c->SetMarkerColor(color_c);
+    pz_overlay->Add(pz_hist_daughters_c);
     
-            pz_hist_daughters_gamma->SetFillColor(kOrange-5);
-            pz_hist_daughters_gamma->SetMarkerStyle(21);
-            pz_hist_daughters_gamma->SetMarkerColor(kOrange-5);
-            pz_overlay->Add(pz_hist_daughters_gamma);
+    pz_hist_daughters_antic->SetFillColor(color_antic);
+    pz_hist_daughters_antic->SetMarkerStyle(21);
+    pz_hist_daughters_antic->SetMarkerColor(color_antic);
+    pz_overlay->Add(pz_hist_daughters_antic);
+    
+    pz_hist_daughters_gamma->SetFillColor(color_p);
+    pz_hist_daughters_gamma->SetMarkerStyle(21);
+    pz_hist_daughters_gamma->SetMarkerColor(color_p);
+    pz_overlay->Add(pz_hist_daughters_gamma);
 
     
 

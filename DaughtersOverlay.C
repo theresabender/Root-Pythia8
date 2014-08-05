@@ -83,9 +83,7 @@ int DaughtersOverlay(int cms=6)
   
     TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
     leg->SetHeader("Legend");
-//    TLegendEntry* l1 = leg->AddEntry("l", "Bottom Quark","l");
-//    l1->SetLineColor(kRed);
-//    l1->SetLineWidth(5);
+
     TLegendEntry* l1 = leg->AddEntry("l", name_b,"l");
     l1->SetLineColor(color_b);
     l1->SetLineWidth(linewidth_legend);
@@ -174,42 +172,6 @@ int DaughtersOverlay(int cms=6)
     px_hist_daughters->Draw("same");
     c2->Update();
     
-    
-// Legend
-//    TLegendEntry* l1 = leg->AddEntry("l", name_b,"l");
-//    l1->SetLineColor(color_b);
-//    l1->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l2 = leg->AddEntry("l", name_antib,"l");
-//    l2->SetLineColor(color_antib);
-//    l2->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l3 = leg->AddEntry("fl", name_w,"l");
-//    l3->SetLineColor(color_w);
-//    l3->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l4 = leg->AddEntry("l", name_antiw,"l");
-//    l4->SetLineColor(color_antiw);
-//    l4->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l5 = leg->AddEntry("l", name_z,"l");
-//    l5->SetLineColor(color_z);
-//    l5->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l6 = leg->AddEntry("l", name_t, "l");
-//    l6->SetLineColor(color_t);
-//    l6->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l7 = leg->AddEntry("l", name_antit, "l");
-//    l7->SetLineColor(color_antit);
-//    l7->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l8 = leg->AddEntry("l", name_c, "l");
-//    l8->SetLineColor(color_c);
-//    l8->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l9 = leg->AddEntry("l", name_antic, "l");
-//    l9->SetLineColor(color_antic);
-//    l9->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l10 = leg->AddEntry("l", name_p, "l");
-//    l10->SetLineColor(color_p);
-//    l10->SetLineWidth(linewidth_legend);
-//    
-//    TLegendEntry* l11 = leg->AddEntry("l", name_ptHd, "l");
-//    l11->SetLineColor(color_ptHd);
-//    l11->SetLineWidth(linewidth_legend);
     leg->Draw();
     c2->Update();
     sprintf(filename, "Output2_%d.png", cms);
@@ -264,42 +226,6 @@ int DaughtersOverlay(int cms=6)
     py_hist_daughters->Draw("same");
     c3->Update();
     
-// Legend
-//    TLegendEntry* l1 = leg->AddEntry("l", name_b,"l");
-//    l1->SetLineColor(color_b);
-//    l1->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l2 = leg->AddEntry("l", name_antib,"l");
-//    l2->SetLineColor(color_antib);
-//    l2->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l3 = leg->AddEntry("fl", name_w,"l");
-//    l3->SetLineColor(color_w);
-//    l3->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l4 = leg->AddEntry("l", name_antiw,"l");
-//    l4->SetLineColor(color_antiw);
-//    l4->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l5 = leg->AddEntry("l", name_z,"l");
-//    l5->SetLineColor(color_z);
-//    l5->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l6 = leg->AddEntry("l", name_t, "l");
-//    l6->SetLineColor(color_t);
-//    l6->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l7 = leg->AddEntry("l", name_antit, "l");
-//    l7->SetLineColor(color_antit);
-//    l7->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l8 = leg->AddEntry("l", name_c, "l");
-//    l8->SetLineColor(color_c);
-//    l8->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l9 = leg->AddEntry("l", name_antic, "l");
-//    l9->SetLineColor(color_antic);
-//    l9->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l10 = leg->AddEntry("l", name_p, "l");
-//    l10->SetLineColor(color_p);
-//    l10->SetLineWidth(linewidth_legend);
-//    
-//    TLegendEntry* l11 = leg->AddEntry("l", name_ptHd, "l");
-//    l11->SetLineColor(color_ptHd);
-//    l11->SetLineWidth(linewidth_legend);
-    
     leg->Draw();
     c3->Update();
     
@@ -349,41 +275,7 @@ int DaughtersOverlay(int cms=6)
     pz_hist_daughters->Draw("same");
     c4->Update();
 
-// Legend
-//    TLegendEntry* l1 = leg->AddEntry("l", name_b,"l");
-//    l1->SetLineColor(color_b);
-//    l1->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l2 = leg->AddEntry("l", name_antib,"l");
-//    l2->SetLineColor(color_antib);
-//    l2->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l3 = leg->AddEntry("fl", name_w,"l");
-//    l3->SetLineColor(color_w);
-//    l3->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l4 = leg->AddEntry("l", name_antiw,"l");
-//    l4->SetLineColor(color_antiw);
-//    l4->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l5 = leg->AddEntry("l", name_z,"l");
-//    l5->SetLineColor(color_z);
-//    l5->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l6 = leg->AddEntry("l", name_t, "l");
-//    l6->SetLineColor(color_t);
-//    l6->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l7 = leg->AddEntry("l", name_antit, "l");
-//    l7->SetLineColor(color_antit);
-//    l7->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l8 = leg->AddEntry("l", name_c, "l");
-//    l8->SetLineColor(color_c);
-//    l8->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l9 = leg->AddEntry("l", name_antic, "l");
-//    l9->SetLineColor(color_antic);
-//    l9->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l10 = leg->AddEntry("l", name_p, "l");
-//    l10->SetLineColor(color_p);
-//    l10->SetLineWidth(linewidth_legend);
-//    
-//    TLegendEntry* l11 = leg->AddEntry("l", name_ptHd, "l");
-//    l11->SetLineColor(color_ptHd);
-//    l11->SetLineWidth(linewidth_legend);
+
     leg->Draw();
     c4->Update();
   
@@ -401,41 +293,7 @@ int DaughtersOverlay(int cms=6)
     energy_overlay->Draw("same");
     c5->Update();
 
-// Legend
-//    TLegendEntry* l1 = leg->AddEntry("l", name_b,"l");
-//    l1->SetLineColor(color_b);
-//    l1->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l2 = leg->AddEntry("l", name_antib,"l");
-//    l2->SetLineColor(color_antib);
-//    l2->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l3 = leg->AddEntry("fl", name_w,"l");
-//    l3->SetLineColor(color_w);
-//    l3->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l4 = leg->AddEntry("l", name_antiw,"l");
-//    l4->SetLineColor(color_antiw);
-//    l4->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l5 = leg->AddEntry("l", name_z,"l");
-//    l5->SetLineColor(color_z);
-//    l5->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l6 = leg->AddEntry("l", name_t, "l");
-//    l6->SetLineColor(color_t);
-//    l6->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l7 = leg->AddEntry("l", name_antit, "l");
-//    l7->SetLineColor(color_antit);
-//    l7->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l8 = leg->AddEntry("l", name_c, "l");
-//    l8->SetLineColor(color_c);
-//    l8->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l9 = leg->AddEntry("l", name_antic, "l");
-//    l9->SetLineColor(color_antic);
-//    l9->SetLineWidth(linewidth_legend);
-//    TLegendEntry* l10 = leg->AddEntry("l", name_p, "l");
-//    l10->SetLineColor(color_p);
-//    l10->SetLineWidth(linewidth_legend);
-//    
-//    TLegendEntry* l11 = leg->AddEntry("l", name_ptHd, "l");
-//    l11->SetLineColor(color_ptHd);
-//    l11->SetLineWidth(linewidth_legend);
+
     leg->Draw();
     c5->Update();
     
