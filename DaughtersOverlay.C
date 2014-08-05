@@ -38,14 +38,15 @@ int DaughtersOverlay(int cms=6)
     Int_t color_b = kRed;
     Int_t color_antib = kBlue;
     Int_t color_w = kGreen;
-    Int_t color_antiw = kOrange;
+    Int_t color_antiw = kOrange-3;
     Int_t color_z = kYellow;
     Int_t color_t = kCyan;
-    Int_t color_antit = kSpring+10;
+    Int_t color_antit = kSpring+3;
     Int_t color_c = kViolet;
-    Int_t color_antic = kAzure-9;
-    Int_t color_p = kOrange-5;
-    Int_t color_ptHd = kPink+7;
+    Int_t color_antic = kRed+3;
+    Int_t color_p = kBlue-10;
+    Int_t color_ptHd = kBlack;
+    
     // ...
     char * name_b = "Bottom Quark";
     char * name_antib = "Bottom Anti-Quark";
@@ -61,6 +62,7 @@ int DaughtersOverlay(int cms=6)
     // ...
     Int_t linewidth_legend = 5;
     Int_t linewidth_fit = 2;
+    Int_t linestyle_ptHd = 2;
     // ...
 
 // ptH
@@ -68,17 +70,41 @@ int DaughtersOverlay(int cms=6)
     TH1F *ptH_daughters = (TH1F*)f->Get("ptH daughters");
     THStack *ptH_overlay = (THStack*)f->Get("ptH overlay");
     
-   TCanvas *c1 = new TCanvas("c1","Daughter Overlay ptH 1",600,400);
+    TCanvas *c1 = new TCanvas("c1","Daughter Overlay ptH 1",600,400);
+    
+    gStyle->SetOptStat(kFALSE);
+    ptH_daughters->SetLineColor(color_ptHd);
+    ptH_daughters->SetLineWidth(3);
+    ptH_daughters->SetLineStyle(2);
+      
+    
+    Double_t max_ptH_daughters = ptH_daughters->GetMaximum();
+    Double_t max_ptH_overlay = ptH_overlay->GetMaximum();
+    Double_t M = 1.1*max(max_ptH_daughters,max_ptH_overlay);
+    Double_t scale1=1.0;
+    Double_t scale2 = 1.0;
+    
+    if (fabs(max_ptH_daughters)>1.0e-15){
+        scale1 = M/max_ptH_daughters;
+    }
+    ptH_daughters->Scale(scale1);
+    
+    
+    ptH_overlay->SetMaximum(M);
+    ptH_overlay->Draw();
+  //  c2->Update();
+    ptH_daughters->Draw("same");
+ //   c2->Update();
+
+    
+    
     
     //create/fill draw h1
-    gStyle->SetOptStat(kFALSE);
-    ptH_daughters->SetLineColor(kPink+7);
-    ptH_daughters->SetLineWidth(5);
-    
-    ptH_daughters->Draw();
+
+    ptH_overlay->Draw();
     c1->Update();
     
-    ptH_overlay->Draw("same");
+    ptH_daughters->Draw("same");
     c1->Update();
   
     TLegend *leg = new TLegend(.7,0.4,0.9,0.9);
@@ -118,6 +144,7 @@ int DaughtersOverlay(int cms=6)
     TLegendEntry* l11 = leg->AddEntry("l", name_ptHd, "l");
     l11->SetLineColor(color_ptHd);
     l11->SetLineWidth(linewidth_legend);
+    l11->SetLineStyle(linestyle_ptHd);
     leg->Draw();
     c1->Update();
     
@@ -132,8 +159,9 @@ int DaughtersOverlay(int cms=6)
     TCanvas *c2 = new TCanvas("c2","Daughter Overlay px",600,400);
     
     gStyle->SetOptStat(kFALSE);
-    px_hist_daughters->SetLineColor(kPink+7);
-    px_hist_daughters->SetLineWidth(5);
+    px_hist_daughters->SetLineColor(color_ptHd);
+    px_hist_daughters->SetLineWidth(3);
+    px_hist_daughters->SetLineStyle(linestyle_ptHd);
     Double_t fitf(Double_t *v, Double_t *par)
     {
         Double_t arg = 0;
@@ -184,8 +212,9 @@ int DaughtersOverlay(int cms=6)
     
     TCanvas *c3 = new TCanvas("c3","py daughters",600,400);
     gStyle->SetOptStat(kFALSE);
-    py_hist_daughters->SetLineColor(kPink+7);
-    py_hist_daughters->SetLineWidth(5);
+    py_hist_daughters->SetLineColor(color_ptHd);
+    py_hist_daughters->SetLineWidth(3);
+    py_hist_daughters->SetLineStyle(linestyle_ptHd);
     
     Double_t fitf(Double_t *v, Double_t *par)
     {
@@ -239,8 +268,9 @@ int DaughtersOverlay(int cms=6)
     
     TCanvas *c4 = new TCanvas("c4","pz daughters",600,400);
     gStyle->SetOptStat(kFALSE);
-    pz_hist_daughters->SetLineColor(kPink+7);
-    pz_hist_daughters->SetLineWidth(5);
+    pz_hist_daughters->SetLineColor(color_ptHd);
+    pz_hist_daughters->SetLineWidth(3);
+    pz_hist_daughters->SetLineStyle(linestyle_ptHd);
     Double_t fitf(Double_t *v, Double_t *par)
     {
         Double_t arg = 0;
@@ -286,11 +316,12 @@ int DaughtersOverlay(int cms=6)
     TCanvas *c5 = new TCanvas("c5","energy daughters",600,400);
 
     gStyle->SetOptStat(kFALSE);
-    energy_hist_daughters->SetLineColor(kPink+7);
-    energy_hist_daughters->SetLineWidth(5);
-    energy_hist_daughters->Draw();
+    energy_hist_daughters->SetLineColor(color_ptHd);
+    energy_hist_daughters->SetLineStyle(linestyle_ptHd);
+    energy_hist_daughters->SetLineWidth(3);
+    energy_overlay->Draw();
     c5->Update();
-    energy_overlay->Draw("same");
+    energy_hist_daughters->Draw("same");
     c5->Update();
 
 

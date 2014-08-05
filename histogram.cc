@@ -461,24 +461,26 @@ int main(int argc, char* argv[]) {
     Int_t color_b = kRed;
     Int_t color_antib = kBlue;
     Int_t color_w = kGreen;
-    Int_t color_antiw = kOrange;
+    Int_t color_antiw = kOrange-3;
     Int_t color_z = kYellow;
-    Int_t color_t = kCyan;
-    Int_t color_antit = kSpring+10;
+    Int_t color_t = kCyan-7;
+    Int_t color_antit = kSpring+3;
     Int_t color_c = kViolet;
-    Int_t color_antic = kAzure-9;
-    Int_t color_p = kOrange-5;
+    Int_t color_antic = kRed+3;
+    Int_t color_p = kBlue-10;
     
             THStack *ptH_overlay = new THStack("ptH overlay","ptH of Higgs Daughters");
 
             ptH_daughters_b->SetFillColor(color_b);
             ptH_daughters_b->SetMarkerStyle(21);
             ptH_daughters_b->SetMarkerColor(color_b);
+           // ptH_daughters_b->SetFillStyle(3001);
             ptH_overlay->Add(ptH_daughters_b);
 
             ptH_daughters_antib->SetFillColor(color_antib);
+            ptH_daughters_antib->SetFillStyle(3014);
             ptH_daughters_antib->SetMarkerStyle(21);
-            ptH_daughters_antib->SetMarkerColor(color_antib);
+         //   ptH_daughters_antib->SetMarkerColor(color_antib);
             ptH_overlay->Add(ptH_daughters_antib);
 
             ptH_daughters_w->SetFillColor(color_w);
