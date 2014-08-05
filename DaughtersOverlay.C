@@ -220,12 +220,7 @@ int DaughtersOverlay(int cms=6)
     }
     px_hist_daughters->Scale(scale1);
     
-    
-//    if (fabs(max_px_overlay)>1.0e-15){
-//        scale2 = M/max_px_overlay;
-//    }
-//    
-//    px_overlay->Scale(scale2);
+
     px_overlay->SetMaximum(M);
     
     
@@ -331,7 +326,7 @@ int DaughtersOverlay(int cms=6)
     func->SetParameters(500,py_hist_daughters->GetMean(),py_hist_daughters->GetRMS());
     func->SetParNames("Constant","Mean_value","Sigma");
     func->SetLineColor(kBlack);
-    func->SetLineWidth(5);
+    func->SetLineWidth(2);
     cout << "### py daughters with energy " << cms << " TeV " << endl;
 
     py_hist_daughters->Fit("fit");
@@ -349,6 +344,26 @@ int DaughtersOverlay(int cms=6)
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
+    
+    
+    
+    
+    Double_t max_py_hist_daughters = py_hist_daughters->GetMaximum();
+    Double_t max_py_overlay = py_overlay->GetMaximum();
+    Double_t M = 1.1*max(max_py_hist_daughters,max_py_overlay);
+    Double_t scale1=1.0;
+    Double_t scale2 = 1.0;
+    
+    if (fabs(max_py_hist_daughters)>1.0e-15){
+        scale1 = M/max_px_hist_daughters;
+    }
+    py_hist_daughters->Scale(scale1);
+    
+    
+    py_overlay->SetMaximum(M);
+    
+
+    
     py_overlay->Draw();
     c3->Update();
     //    c2->Update();
@@ -436,7 +451,7 @@ int DaughtersOverlay(int cms=6)
     func->SetParameters(2000,pz_hist_daughters->GetMean(),20);
     func->SetParNames("Constant","Mean_value","Sigma");
     func->SetLineColor(kBlack);
-    func->SetLineWidth(5);
+    func->SetLineWidth(2);
     cout << "### pz daughters with energy " << cms << " TeV " << endl;
 
     pz_hist_daughters->Fit("fit");
@@ -455,6 +470,26 @@ int DaughtersOverlay(int cms=6)
     // //   hs->SetLineWidth(1);
     ////    hs->Scale(scale1);
     //    //hs->Draw("same");
+    
+    
+    
+    Double_t max_pz_hist_daughters = pz_hist_daughters->GetMaximum();
+    Double_t max_pz_overlay = pz_overlay->GetMaximum();
+    Double_t M = 1.1*max(max_pz_hist_daughters,max_pz_overlay);
+    Double_t scale1=1.0;
+    Double_t scale2 = 1.0;
+    
+    if (fabs(max_pz_hist_daughters)>1.0e-15){
+        scale1 = M/max_pz_hist_daughters;
+    }
+    pz_hist_daughters->Scale(scale1);
+    
+    
+    pz_overlay->SetMaximum(M);
+    
+
+    
+    
     pz_overlay->Draw();
     c4->Update();
     //    c2->Update();
