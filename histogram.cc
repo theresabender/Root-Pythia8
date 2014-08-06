@@ -39,6 +39,7 @@
 #include "TH1.h"
 #include "TGaxis.h"
 #include "TRandom.h"
+#include "TColor.h"
 
 
 using namespace Pythia8;
@@ -183,7 +184,7 @@ int main(int argc, char* argv[]) {
     
     // this is event cycle
     nEntries = T->GetEntries();
-//    nEntries = 100;
+ //   nEntries = 100;
     cout << "nEntries=" << nEntries << endl;
     
     for(Int_t i=0; i<nEntries; ++i) {
@@ -458,39 +459,70 @@ int main(int argc, char* argv[]) {
     
     f.cd();
 
-    Int_t color_b = kRed;
-    Int_t color_antib = kBlue;
-    Int_t color_w = kGreen;
-    Int_t color_antiw = kOrange-3;
-    Int_t color_z = kYellow;
-    Int_t color_t = kCyan-7;
-    Int_t color_antit = kSpring+3;
-    Int_t color_c = kViolet;
-    Int_t color_antic = kRed+3;
-    Int_t color_p = kBlue-10;
+//    Int_t color_b = 8;
+//    Int_t color_antib = 7;
+//    Int_t color_w = 30;
+//    Int_t color_antiw = 6;
+//    Int_t color_z = 44;
+//    Int_t color_t = 1;
+//    Int_t color_antit = 2;
+//    Int_t color_c = 40;
+//    Int_t color_antic = 4;
+//    Int_t color_p = 41;
+    
+    
+    Int_t color_b = 1;
+    Int_t color_antib = 1;
+    Int_t color_w = 1;
+    Int_t color_antiw = 1;
+    Int_t color_z = 2;
+    Int_t color_t = 4;
+    Int_t color_antit = 8;
+    Int_t color_c = 6;
+    Int_t color_antic = 7;
+    Int_t color_p = 41;
+    
+    Int_t fillstyle_b = 3025;
+    Int_t fillstyle_antib = 3004;
+    Int_t fillstyle_w = 3023;
+    Int_t fillstyle_antiw = 3012;
+
+    
+//    Int_t color_b = 1700;
+//    TColor *color = new TColor(color_b, 1.0, 0.12, 0.12);
+////    TColor color ;
+////    color->SetRGB(1.0, 0.12, 0.12);
+//    cout << ":476 color="<< color->GetColor((Float_t)1.0, (Float_t)0.12, (Float_t)0.12) << endl;
+//    color_b = color->GetNumber();
+//    Int_t color_antib = 0;
+//    TColor *color2 = new TColor(color_antib, 0.68, 0.24, 0.32);
+//    color_antib = color2->GetNumber();
+//    cout << "color b " << color_b << "color antib" << color_antib << endl;
     
             THStack *ptH_overlay = new THStack("ptH overlay","ptH of Higgs Daughters");
 
             ptH_daughters_b->SetFillColor(color_b);
             ptH_daughters_b->SetMarkerStyle(21);
             ptH_daughters_b->SetMarkerColor(color_b);
-           // ptH_daughters_b->SetFillStyle(3001);
+            ptH_daughters_b->SetFillStyle(fillstyle_b);
             ptH_overlay->Add(ptH_daughters_b);
 
             ptH_daughters_antib->SetFillColor(color_antib);
-            ptH_daughters_antib->SetFillStyle(3014);
             ptH_daughters_antib->SetMarkerStyle(21);
-         //   ptH_daughters_antib->SetMarkerColor(color_antib);
+            ptH_daughters_antib->SetMarkerColor(color_antib);
+            ptH_daughters_antib->SetFillStyle(fillstyle_antib);
             ptH_overlay->Add(ptH_daughters_antib);
 
             ptH_daughters_w->SetFillColor(color_w);
             ptH_daughters_w->SetMarkerStyle(21);
             ptH_daughters_w->SetMarkerColor(color_w);
+            ptH_daughters_w->SetFillStyle(fillstyle_w);
             ptH_overlay->Add(ptH_daughters_w);
 
             ptH_daughters_antiw->SetFillColor(color_antiw);
             ptH_daughters_antiw->SetMarkerStyle(21);
             ptH_daughters_antiw->SetMarkerColor(color_antiw);
+            ptH_daughters_antiw->SetFillStyle(fillstyle_antiw);
             ptH_overlay->Add(ptH_daughters_antiw);
 
             ptH_daughters_z->SetFillColor(color_z);
@@ -544,7 +576,19 @@ int main(int argc, char* argv[]) {
 //            l5->SetLineColor(kYellow);
 //            l5->SetLineWidth(4);
     
-    
+//    TLegend *leggg = new TLegend(.7,0.4,0.9,0.9);
+//    leggg->SetHeader("Legend");
+//    
+//    TLegendEntry* l1 = leggg->AddEntry("l1", "name_b","f");
+//    l1->SetLineColor(color_b);
+//    l1->SetLineWidth(1);
+//    l1->SetFillStyle(fillstyle_b);
+//    TLegendEntry* l2 = leggg->AddEntry("l2", "name_antib","l");
+//    l2->SetLineColor(color_antib);
+//    l2->SetLineWidth(9);
+//    l2->SetFillStyle(fillstyle_antib);
+//    
+//    leggg->Write();
     
     
             THStack *energy_overlay = new THStack("energy overlay","Energy of Higgs Daughters");
@@ -552,21 +596,25 @@ int main(int argc, char* argv[]) {
     energy_hist_daughters_b->SetFillColor(color_b);
     energy_hist_daughters_b->SetMarkerStyle(21);
     energy_hist_daughters_b->SetMarkerColor(color_b);
+    energy_hist_daughters_b->SetFillStyle(fillstyle_b);
     energy_overlay->Add(energy_hist_daughters_b);
     
     energy_hist_daughters_antib->SetFillColor(color_antib);
     energy_hist_daughters_antib->SetMarkerStyle(21);
     energy_hist_daughters_antib->SetMarkerColor(color_antib);
+    energy_hist_daughters_antib->SetFillStyle(fillstyle_antib);
     energy_overlay->Add(energy_hist_daughters_antib);
     
     energy_hist_daughters_w->SetFillColor(color_w);
     energy_hist_daughters_w->SetMarkerStyle(21);
     energy_hist_daughters_w->SetMarkerColor(color_w);
+    energy_hist_daughters_w->SetFillStyle(fillstyle_w);
     energy_overlay->Add(energy_hist_daughters_w);
     
     energy_hist_daughters_antiw->SetFillColor(color_antiw);
     energy_hist_daughters_antiw->SetMarkerStyle(21);
     energy_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    energy_hist_daughters_antiw->SetFillStyle(fillstyle_antiw);
     energy_overlay->Add(energy_hist_daughters_antiw);
     
     energy_hist_daughters_z->SetFillColor(color_z);
@@ -604,26 +652,31 @@ int main(int argc, char* argv[]) {
     px_hist_daughters_b->SetFillColor(color_b);
     px_hist_daughters_b->SetMarkerStyle(21);
     px_hist_daughters_b->SetMarkerColor(color_b);
+    px_hist_daughters_b->SetFillStyle(fillstyle_b);
     px_overlay->Add(px_hist_daughters_b);
     
     px_hist_daughters_antib->SetFillColor(color_antib);
     px_hist_daughters_antib->SetMarkerStyle(21);
     px_hist_daughters_antib->SetMarkerColor(color_antib);
+    px_hist_daughters_antib->SetFillStyle(fillstyle_antib);
     px_overlay->Add(px_hist_daughters_antib);
     
     px_hist_daughters_w->SetFillColor(color_w);
     px_hist_daughters_w->SetMarkerStyle(21);
     px_hist_daughters_w->SetMarkerColor(color_w);
+    px_hist_daughters_w->SetFillStyle(fillstyle_w);
     px_overlay->Add(px_hist_daughters_w);
     
     px_hist_daughters_antiw->SetFillColor(color_antiw);
     px_hist_daughters_antiw->SetMarkerStyle(21);
     px_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    px_hist_daughters_w->SetFillStyle(fillstyle_antiw);
     px_overlay->Add(px_hist_daughters_antiw);
     
     px_hist_daughters_z->SetFillColor(color_z);
     px_hist_daughters_z->SetMarkerStyle(21);
     px_hist_daughters_z->SetMarkerColor(color_z);
+    px_hist_daughters_antiw->SetFillStyle(3023);
     px_overlay->Add(px_hist_daughters_z);
     
     px_hist_daughters_t->SetFillColor(color_t);
@@ -657,21 +710,25 @@ int main(int argc, char* argv[]) {
     py_hist_daughters_b->SetFillColor(color_b);
     py_hist_daughters_b->SetMarkerStyle(21);
     py_hist_daughters_b->SetMarkerColor(color_b);
+    py_hist_daughters_b->SetFillStyle(fillstyle_b);
     py_overlay->Add(py_hist_daughters_b);
     
     py_hist_daughters_antib->SetFillColor(color_antib);
     py_hist_daughters_antib->SetMarkerStyle(21);
     py_hist_daughters_antib->SetMarkerColor(color_antib);
+    py_hist_daughters_antib->SetFillStyle(fillstyle_antib);
     py_overlay->Add(py_hist_daughters_antib);
     
     py_hist_daughters_w->SetFillColor(color_w);
     py_hist_daughters_w->SetMarkerStyle(21);
     py_hist_daughters_w->SetMarkerColor(color_w);
+    py_hist_daughters_w->SetFillStyle(fillstyle_w);
     py_overlay->Add(py_hist_daughters_w);
     
     py_hist_daughters_antiw->SetFillColor(color_antiw);
     py_hist_daughters_antiw->SetMarkerStyle(21);
     py_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    py_hist_daughters_antiw->SetFillStyle(fillstyle_antiw);
     py_overlay->Add(py_hist_daughters_antiw);
     
     py_hist_daughters_z->SetFillColor(color_z);
@@ -708,22 +765,26 @@ int main(int argc, char* argv[]) {
     
     pz_hist_daughters_b->SetFillColor(color_b);
     pz_hist_daughters_b->SetMarkerStyle(21);
+    pz_hist_daughters_b->SetFillStyle(fillstyle_b);
     pz_hist_daughters_b->SetMarkerColor(color_b);
     pz_overlay->Add(pz_hist_daughters_b);
     
     pz_hist_daughters_antib->SetFillColor(color_antib);
     pz_hist_daughters_antib->SetMarkerStyle(21);
     pz_hist_daughters_antib->SetMarkerColor(color_antib);
+    pz_hist_daughters_antib->SetFillStyle(fillstyle_antib);
     pz_overlay->Add(pz_hist_daughters_antib);
     
     pz_hist_daughters_w->SetFillColor(color_w);
     pz_hist_daughters_w->SetMarkerStyle(21);
     pz_hist_daughters_w->SetMarkerColor(color_w);
+    pz_hist_daughters_w->SetFillStyle(fillstyle_w);
     pz_overlay->Add(pz_hist_daughters_w);
     
     pz_hist_daughters_antiw->SetFillColor(color_antiw);
     pz_hist_daughters_antiw->SetMarkerStyle(21);
     pz_hist_daughters_antiw->SetMarkerColor(color_antiw);
+    pz_hist_daughters_antiw->SetFillStyle(fillstyle_antiw);
     pz_overlay->Add(pz_hist_daughters_antiw);
     
     pz_hist_daughters_z->SetFillColor(color_z);
